@@ -1,14 +1,16 @@
+package Graphics;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Cuoco extends JPanel{
-    private JPanel CuocoPanel;
+public class Cameriere extends JPanel{
+    private JPanel CamerierePanel;
     private JFrame frame;
 
-    public Cuoco(){
-        frame= new JFrame("Cuoco");
+    public Cameriere(){
+        frame= new JFrame("Cameriere");
         frame.setSize(new Dimension(500,500));
-        frame.setContentPane(CuocoPanel);
+        frame.setContentPane(CamerierePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }

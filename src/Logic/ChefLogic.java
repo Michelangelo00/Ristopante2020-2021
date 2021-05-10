@@ -1,3 +1,5 @@
+package Logic;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +10,7 @@ public class ChefLogic {
     //private Scanner in = new Scanner(System.in);
     //private String file = in.nextLine();
     private HashMap<String,Double> menu = new HashMap<>();
-    private File inputfile= new File("/home/lollof00/IdeaProjects/ProgettoProva1/menu.txt");
+    private File inputfile= new File("/home/lollof00/IdeaProjects/Ristopante2020-2021/menu.txt");
     static int numero_pietanze=0;
 
     public void addFood(String food, Double price){

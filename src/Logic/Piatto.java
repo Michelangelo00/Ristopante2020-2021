@@ -1,3 +1,5 @@
+package Logic;
+
 public class Piatto {
 
     private String nome;

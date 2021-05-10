@@ -1,5 +1,2 @@
-/*0*/Pietanza: Cacio e Pepe Prezzo: 9.0
-/*1*/Pietanza: Matriciana Prezzo: 5.0
-/*2*/Pietanza: Carbonara Prezzo: 8.0
-/*0*/Pietanza: Lasagna Prezzo: 10.0
-/*1*/Pietanza: Trippa Prezzo: 12.0
+/*0*/Pietanza: merda Prezzo: 180.0
+/*1*/Pietanza: Coddio Prezzo: 22.0
