@@ -2,6 +2,8 @@ package Logic;
 
 public class CameriereLogic {
 
+    private Data data = new Data();
+
     public Ordine CreaOrdine(int numTavolo){
         Ordine nuovoOrdine = new Ordine(numTavolo);
         return nuovoOrdine;
@@ -26,5 +28,6 @@ public class CameriereLogic {
 
     public void FinalizzaOrdine(Ordine ordine){
         ordine.setStato(1);
+        data.loadOrdini(ordine);
     }
 }
