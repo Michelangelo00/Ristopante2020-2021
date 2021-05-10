@@ -10,6 +10,10 @@ public class Chef extends JPanel{
     private JTextArea PiattoNome;
     private JTextArea PiattoPrezzo;
     private JButton aggiungiPiattoButton;
+    private JButton confermaAggiunteButton;
+    //private JList PiattiList;
+    //private DefaultListModel mod = new DefaultListModel();
+
 
     public Chef(){
         frame= new JFrame("Chef");
@@ -17,13 +21,24 @@ public class Chef extends JPanel{
         frame.setContentPane(ChefPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        
 
         aggiungiPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome= PiattoNome.getText();
-                String prezzo= PiattoPrezzo.getText();
+                Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
                 chefLogic.addFood(nome,prezzo);
+                PiattoNome.selectAll();
+                PiattoNome.replaceSelection("");
+                PiattoPrezzo.selectAll();
+                PiattoPrezzo.replaceSelection("");
+            }
+        });
+        confermaAggiunteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chefLogic.WriteToFile();
             }
         });
     }
