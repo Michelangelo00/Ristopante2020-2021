@@ -16,7 +16,7 @@ public class HomePage {
 
     public HomePage() {
         frame = new JFrame("HomePage");
-        frame.setSize(new Dimension(500, 500));
+        frame.setBounds(600,300,500,500);
         frame.setContentPane(HomePagePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
