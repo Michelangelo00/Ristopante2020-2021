@@ -8,6 +8,8 @@ public class Data {
     private File inputfile= new File("/home/lollof00/IdeaProjects/Ristopante2020-2021/menu.txt");
     private ArrayList<Piatto> menu= new ArrayList<>();
 
+    private ArrayList<Ordine> ordini = new ArrayList<>();
+
     public Data(){
         loadMenu();
     }
@@ -49,6 +51,15 @@ public class Data {
             e.printStackTrace();
         }
     }
+
+    public void loadOrdini(Ordine ordine){
+        ordini.add(ordine);
+    }
+
+    public ArrayList<Ordine> getOrdini() {
+        return ordini;
+    }
+
 }
 
 
