@@ -66,7 +66,6 @@ public class Ordine {
         return "tavolo n: " + tavoloID + " stato: " + stato + " piatti: " + piatti;
     }
 
-
     public int getStato() {
         return stato;
     }
