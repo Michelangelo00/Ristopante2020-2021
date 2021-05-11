@@ -59,6 +59,7 @@ public class Data {
     public ArrayList<Ordine> getOrdini() {
         return ordini;
     }
+
 }
 
 
