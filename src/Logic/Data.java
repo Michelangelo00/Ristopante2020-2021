@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Data {
-    private File inputfile= new File("/home/lollof00/IdeaProjects/Ristopante2020-2021/menu.txt");
-    private ArrayList<Piatto> menu= new ArrayList<>();
 
+    private static File inputfile= new File("/home/lollof00/IdeaProjects/Ristopante2020-2021/menu.txt");
+    private static ArrayList<Piatto> menu= new ArrayList<>();
     private ArrayList<Ordine> ordini = new ArrayList<>();
 
     public Data(){
@@ -15,7 +15,7 @@ public class Data {
     }
 
 
-    public void loadMenu(){
+    public  void loadMenu(){
             try {
                 BufferedReader reader= new BufferedReader(new FileReader(inputfile));
                 String linea = reader.readLine();
@@ -24,7 +24,10 @@ public class Data {
                     String[] record = linea.split(",");
                     String Nome = record[0].trim();
                     Double Prezzo = Double.parseDouble(record[1].trim());
-                    menu.add(new Piatto(Nome,Prezzo));
+                    Piatto nuovo= new Piatto(Nome,Prezzo);
+                    if(!menu.contains(nuovo.getNome())) {
+                        menu.add(nuovo);
+                    }
                     linea= reader.readLine();
                 }
             } catch (FileNotFoundException e) {
@@ -32,16 +35,17 @@ public class Data {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+           System.out.println(getMenu());
     }
 
-    public ArrayList<Piatto> getMenu() {
+    public static ArrayList<Piatto> getMenu() {
         return menu;
     }
 
     public void WriteToFile(){
 
         try{
-            BufferedWriter out = new BufferedWriter(new FileWriter(inputfile,true));
+            BufferedWriter out = new BufferedWriter(new FileWriter(inputfile,false));
             for(Piatto h: menu){
                 out.write(h.getNome()+","+h.getPrezzo());
                 out.write("\n");

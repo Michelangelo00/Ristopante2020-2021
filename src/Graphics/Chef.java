@@ -10,9 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.util.ArrayList;
 
 public class Chef extends JPanel{
-    Data data = new Data();
     ChefLogic chefLogic = new ChefLogic();
     private JFrame frame;
     private JPanel ChefPanel;
@@ -30,9 +30,17 @@ public class Chef extends JPanel{
 
     public Chef(){
         frame= new JFrame("Chef");
-        MenuList= new JList(data.getMenu().toArray());
+
+        DefaultListModel<Piatto> model= new DefaultListModel<>();
+        for(Piatto p: chefLogic.getMenu()){
+            model.addElement(p);
+        }
+        MenuList= new JList();
+        MenuList.setModel(model);
         MenuList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ListPanel.add(MenuList);
+
+
         frame.setBounds(600,300,820,600);
         frame.setContentPane(ChefPanel);
 
@@ -50,6 +58,7 @@ public class Chef extends JPanel{
                 PiattoNome.replaceSelection("");
                 PiattoPrezzo.selectAll();
                 PiattoPrezzo.replaceSelection("");
+                model.addElement(new Piatto(nome,prezzo));
             }
         });
 
@@ -61,6 +70,13 @@ public class Chef extends JPanel{
             }
         });
 
+        rimuoviPiattoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chefLogic.removeFood((Piatto) MenuList.getSelectedValue());
+                model.removeElement(MenuList.getSelectedValue());
+            }
+        });
     }
 
 }
