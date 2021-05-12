@@ -13,16 +13,18 @@ public class Cameriere extends JPanel{
     private JButton aggiungiPiattoButton;
     private JButton creaOrdineButton;
     private JButton inviaOrdineButton;
-    private JList<Piatto> list1;
+    private JList<Piatto> menuList;
+    private JList<Piatto> ordineList;
+    private JLabel menuText;
+    private JButton rimuoviPiattoButton;
+    private JButton indietroButton;
     private JFrame frame;
 
-    private Ordine ordine;
-    private int numeroTavolo = 1; // variabile temporaneamente hardcoded successivamente passata da un textbox
+    private Ordine ordine; //inizializzo ordine
 
     public Cameriere(){
 
         CameriereLogic cameriereL = new CameriereLogic(); //creo istanza di cameriere logic
-        Data data = new Data();
 
 
 
@@ -37,60 +39,90 @@ public class Cameriere extends JPanel{
 
 
         //PROVA INPUT MENU/////////////////////////////////////////////////////////
-
-        ArrayList<Piatto> menu = new ArrayList<>();
-        menu.add(new Piatto("carbonara", 12.30));
-        menu.add(new Piatto("gricia", 10.50));
-        menu.add(new Piatto("aglio e oglio", 9.00));
-        menu.add(new Piatto("amatriciana", 11.90));
-        DefaultListModel dlm = new DefaultListModel();
-        //dlm.addElement(data.getMenu());
+        ArrayList<Piatto> menu = Data.getMenu();
+        DefaultListModel dlmMenu = new DefaultListModel();
         for(Piatto piatto : menu){
-            dlm.addElement(piatto);
+            dlmMenu.addElement(piatto);
         }
-        list1.setModel(dlm);
+        this.menuList.setModel(dlmMenu);
 
         ////////////////////////////////////////////////////////////////////////////
 
+        /**
+         * dlm lista dell'ordine
+         */
+        DefaultListModel dlmOrdine = new DefaultListModel();
+        this.ordineList.setModel(dlmOrdine);
 
         /**
-         * listener per aggiungere un piatto all'ordine
+         * aggiunge un piatto all'ordine
          */
         aggiungiPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(ordine != null){
-                    Piatto piatto = new Piatto("carbonara", 12.50);
-                    cameriereL.AggiungiPiatto(ordine,piatto); // paramentro temporaneamente hardcoded, successivamente passata da ???
+                if(ordine != null && ordine.getTavoloID() != 0){
+                    Piatto piatto = menuList.getSelectedValue();
+                    cameriereL.AggiungiPiatto(ordine,piatto);
                     System.out.println("Aggiunto piatto: " + piatto + " all'ordine: " + ordine);
+
+                    //GPX
+                    dlmOrdine.addElement(piatto);
                 }
             }
         });
 
         /**
-         * listener per creare un nuovo ordine
+         * crea un nuovo ordine con un dato numero del tavolo
          */
         creaOrdineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int numeroTavolo = Integer.parseInt(JOptionPane.showInputDialog(CamerierePanel,"Inserire numero del tavolo"));
                 ordine = cameriereL.CreaOrdine(numeroTavolo);
                 System.out.println("Creato ordine: " + ordine);
             }
         });
 
         /**
-         * listener per finalizzare l'ordine
+         * finalizza l'ordine compilato e svuota la GUI
          */
         inviaOrdineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cameriereL.FinalizzaOrdine(ordine);
-                System.out.println("Ordine: " + ordine + " finalizzato");
+                if(ordine != null && ordine.getTavoloID() != 0){
+                    cameriereL.FinalizzaOrdine(ordine); //invio l'ordine al cuoco
+                    dlmOrdine.clear(); //svuoto la GUI
+                    //ordine.SvuotaOrdine(); // svuoto l'ordine
+                    ordine.setTavoloID(0);
+                    System.out.println("Ordine: " + ordine + " finalizzato");
+                }
+            }
+        });
+
+        /**
+         * rimuove un piatto selezionato dall'ordine
+         */
+        rimuoviPiattoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ordine != null && ordine.getTavoloID() != 0){
+                    Piatto piatto = ordineList.getSelectedValue();
+                    cameriereL.RimuoviPiatto(ordine,piatto);
+                    System.out.println("Rimosso piatto: " + piatto + " all'ordine: " + ordine);
+
+                    //GPX
+                    dlmOrdine.removeElement(piatto);
+                }
+            }
+        });
+        indietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                HomePage homePage= new HomePage();
             }
         });
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+
 }

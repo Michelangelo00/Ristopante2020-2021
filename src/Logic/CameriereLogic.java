@@ -3,7 +3,6 @@ package Logic;
 public class CameriereLogic {
 
 
-    private Data data = new Data(); //creo un istanza di data
 
     /**
      * creo ordine del tavolo e lo restituisco
@@ -59,6 +58,6 @@ public class CameriereLogic {
      */
     public void FinalizzaOrdine(Ordine ordine){
         ordine.setStato(1);
-        data.loadOrdini(ordine);
+        Data.loadOrdini(ordine);
     }
 }
