@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="ChefPanel" layout-manager="GridLayoutManager" row-count="6" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1149" height="476"/>
+      <xy x="20" y="20" width="927" height="476"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -17,30 +17,12 @@
           <text value="Sono lo Chef"/>
         </properties>
       </component>
-      <component id="856e7" class="javax.swing.JLabel">
+      <component id="d348e" class="javax.swing.JButton" binding="confermaAggiunteButton" default-binding="true">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font size="18"/>
-          <text value="Inserisci Il nome del piatto: "/>
-        </properties>
-      </component>
-      <component id="2b3c7" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font size="18"/>
-          <text value="Inserisci Il prezzo del piatto:"/>
-        </properties>
-      </component>
-      <component id="bf0" class="javax.swing.JButton" binding="aggiungiPiattoButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Aggiungi  piatto"/>
+          <text value="Conferma modifiche"/>
         </properties>
       </component>
       <component id="37c97" class="javax.swing.JButton" binding="modificaPiattoButton" default-binding="true">
@@ -57,22 +39,6 @@
         </constraints>
         <properties>
           <text value="Rimuovi piatto"/>
-        </properties>
-      </component>
-      <component id="d348e" class="javax.swing.JButton" binding="confermaAggiunteButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Conferma modifiche"/>
-        </properties>
-      </component>
-      <component id="f748b" class="javax.swing.JTextArea" binding="PiattoPrezzo">
-        <constraints>
-          <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value=""/>
         </properties>
       </component>
       <grid id="451fe" binding="ListPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -96,6 +62,32 @@
           <text value=""/>
         </properties>
       </component>
+      <component id="f748b" class="javax.swing.JTextArea" binding="PiattoPrezzo">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="856e7" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="18"/>
+          <text value="Inserisci Il nome del piatto"/>
+        </properties>
+      </component>
+      <component id="2b3c7" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="18"/>
+          <text value="Inserisci Il prezzo del piatto"/>
+        </properties>
+      </component>
       <component id="9b4a5" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
@@ -103,6 +95,14 @@
         <properties>
           <font size="18"/>
           <text value="Il Menù"/>
+        </properties>
+      </component>
+      <component id="bf0" class="javax.swing.JButton" binding="aggiungiPiattoButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Aggiungi  piatto"/>
         </properties>
       </component>
     </children>
