@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Logic.Data;
+
 public class HomePage {
     private JFrame frame;
     private JButton responsabileDiCassaButton;
@@ -63,6 +65,7 @@ public class HomePage {
 
 
     public static void main(String[] args) {
+        Data data = new Data();
         HomePage homePage= new HomePage();
     }
 }

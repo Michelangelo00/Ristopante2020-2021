@@ -61,6 +61,10 @@ public class Ordine {
         }
     }
 
+    public void SvuotaOrdine(){
+        this.piatti.clear();
+    }
+
     @Override
     public String toString(){
         return "tavolo n: " + tavoloID + " stato: " + stato + " piatti: " + piatti;
