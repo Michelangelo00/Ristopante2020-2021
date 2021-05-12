@@ -12,6 +12,10 @@ import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 import java.util.ArrayList;
 
+/**
+ * classe che implementa graficamente la figura dello Chef
+ */
+
 public class Chef extends JPanel{
     ChefLogic chefLogic = new ChefLogic();
     private JFrame frame;
@@ -26,43 +30,41 @@ public class Chef extends JPanel{
     private JPanel ListPanel;
     private GridBagConstraints c = new GridBagConstraints();
     private JList MenuList;
+    private static DefaultListModel<Piatto> model= new DefaultListModel<>();
 
 
-    public Chef(){
-        frame= new JFrame("Chef");
-
-        DefaultListModel<Piatto> model= new DefaultListModel<>();
-        for(Piatto p: chefLogic.getMenu()){
-            model.addElement(p);
-        }
-        MenuList= new JList();
-        MenuList.setModel(model);
-        MenuList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        ListPanel.add(MenuList);
-
-
-        frame.setBounds(600,300,820,600);
+    public Chef() {
+        /**
+         * Costruttore della base grafica
+         */
+        frame = new JFrame("Chef");
+        LoadMenuList();
+        frame.setBounds(600, 300, 820, 600);
         frame.setContentPane(ChefPanel);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
 
+        /**
+         * Listener per aggiungere un nuovo piatto al menù
+         */
         aggiungiPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome= PiattoNome.getText();
                 Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
-                chefLogic.addFood(nome,prezzo);
+                model.addElement(new Piatto(nome,prezzo));
+                ChefLogic.addFood(nome,prezzo);
                 PiattoNome.selectAll();
                 PiattoNome.replaceSelection("");
                 PiattoPrezzo.selectAll();
                 PiattoPrezzo.replaceSelection("");
-                model.addElement(new Piatto(nome,prezzo));
             }
         });
 
-
+        /**
+         * Listener per confermare le modifiche effettuate al menù
+         */
         confermaAggiunteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,13 +72,43 @@ public class Chef extends JPanel{
             }
         });
 
+        /**
+         * Listener per rimuovere un piatto dal menù
+         */
         rimuoviPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chefLogic.removeFood((Piatto) MenuList.getSelectedValue());
-                model.removeElement(MenuList.getSelectedValue());
+                ChefLogic.removeFood((Piatto) MenuList.getSelectedValue());
+               // model.removeElement(MenuList.getSelectedValue());
             }
         });
+
+        /**
+         * Listener per modificare un piatto dal menù
+         */
+        modificaPiattoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    Piatto modifica = (Piatto) MenuList.getSelectedValue();
+                    String nuovo_nome= JOptionPane.showInputDialog("Modifica il nome del piatto",modifica.getNome());
+                    double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto",modifica.getPrezzo()));
+                    Piatto piatto_modificato =new Piatto(nuovo_nome,nuovo_prezzo);
+                    //model.set(MenuList.getSelectedIndex(),piatto_modificato);
+                    chefLogic.editFood((Piatto) MenuList.getSelectedValue(),piatto_modificato);
+            }
+        });
+    }
+
+    /**
+     * metodo per caricare il modello della lista con i piatti del menù
+     */
+    public void LoadMenuList(){
+        for (Piatto p : chefLogic.getMenu()) {
+            model.addElement(p);
+        }
+        MenuList = new JList();
+        MenuList.setModel(model);
+        ListPanel.add(MenuList);
     }
 
 }
