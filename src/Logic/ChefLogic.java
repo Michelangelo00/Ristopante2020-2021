@@ -15,11 +15,22 @@ public class ChefLogic {
      * @param food nome del piatto da aggiungere
      * @param price prezzo del piatto da aggiungere
      */
-    public static void addFood(String food, Double price){
-        Piatto nuovo= new Piatto(food,price);
-        if(!Data.getMenu().contains(nuovo)){
+    public void addFood(String food, Double price){
+        //System.out.println(food);
+        Piatto nuovo = null;
+        Iterator<Piatto> itr= Data.getMenu().iterator();
+        while(itr.hasNext()){
+            Piatto p = itr.next();
+            if(!(p.getNome().equals(food) && p.getPrezzo()==price )){
+                nuovo= new Piatto(food,price);
+            }
+        }
+        if(nuovo!=null){
             Data.getMenu().add(nuovo);
         }
+
+
+        System.out.println(Data.getMenu());
     }
 
     /**
@@ -37,6 +48,8 @@ public class ChefLogic {
         if (Data.getMenu().contains(piatto)){
             Data.getMenu().remove(piatto);
         }
+        System.out.println(Data.getMenu());
+
     }
 
     /**

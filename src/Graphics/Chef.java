@@ -30,7 +30,7 @@ public class Chef extends JPanel{
     private JPanel ListPanel;
     private GridBagConstraints c = new GridBagConstraints();
     private JList MenuList;
-    private static DefaultListModel<Piatto> model= new DefaultListModel<>();
+    private DefaultListModel<Piatto> model= new DefaultListModel<>();
 
 
     public Chef() {
@@ -53,12 +53,10 @@ public class Chef extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 String nome= PiattoNome.getText();
                 Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
-                model.addElement(new Piatto(nome,prezzo));
-                ChefLogic.addFood(nome,prezzo);
-                PiattoNome.selectAll();
-                PiattoNome.replaceSelection("");
-                PiattoPrezzo.selectAll();
-                PiattoPrezzo.replaceSelection("");
+                chefLogic.addFood(nome,prezzo);
+                Add(new Piatto(nome,prezzo));
+                PiattoNome.setText("");
+                PiattoPrezzo.setText("");
             }
         });
 
@@ -79,7 +77,7 @@ public class Chef extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChefLogic.removeFood((Piatto) MenuList.getSelectedValue());
-               // model.removeElement(MenuList.getSelectedValue());
+                Delete((Piatto) MenuList.getSelectedValue());
             }
         });
 
@@ -93,8 +91,9 @@ public class Chef extends JPanel{
                     String nuovo_nome= JOptionPane.showInputDialog("Modifica il nome del piatto",modifica.getNome());
                     double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto",modifica.getPrezzo()));
                     Piatto piatto_modificato =new Piatto(nuovo_nome,nuovo_prezzo);
-                    //model.set(MenuList.getSelectedIndex(),piatto_modificato);
                     chefLogic.editFood((Piatto) MenuList.getSelectedValue(),piatto_modificato);
+                    Edit(MenuList.getSelectedIndex(),piatto_modificato);
+
             }
         });
     }
@@ -109,6 +108,17 @@ public class Chef extends JPanel{
         MenuList = new JList();
         MenuList.setModel(model);
         ListPanel.add(MenuList);
+    }
+
+
+    public void Add(Piatto piatto){
+        model.addElement(piatto);
+    }
+    public void Edit(int index, Piatto piatto_nuovo){
+        model.set(index,piatto_nuovo);
+    }
+    public void Delete(Piatto piatto){
+        model.removeElement(piatto);
     }
 
 }
