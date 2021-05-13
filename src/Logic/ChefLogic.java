@@ -18,7 +18,7 @@ public class ChefLogic {
      //* @param food nome del piatto da aggiungere
      //* @param price prezzo del piatto da aggiungere
      */
-    public void addFood(Piatto nuovo){
+    public boolean addFood(Piatto nuovo){
         boolean add=false;
         ListIterator<Piatto> itr= data.getMenu().listIterator();
         while(itr.hasNext()){
@@ -32,9 +32,10 @@ public class ChefLogic {
         }
         if(add){
             data.getMenu().add(nuovo);
+            return true;
         }
+        return false;
 
-        System.out.println(data.getMenu());
     }
 
     /**

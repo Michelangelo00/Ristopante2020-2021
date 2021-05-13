@@ -59,12 +59,13 @@ public class Chef extends JPanel{
                     }else{
                         String nome= PiattoNome.getText();
                         Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
-                        chefLogic.addFood(new Piatto(nome,prezzo));
+                        if(!chefLogic.addFood(new Piatto(nome,prezzo))){
+                            JOptionPane.showMessageDialog(frame,"Piatto gia esistente");
+                        }
                         Add(new Piatto(nome,prezzo));
                         PiattoNome.setText("");
                         PiattoPrezzo.setText("");
                         JOptionPane.showMessageDialog(frame,"Piatto aggiunto!");
-
                     }
                 }else{
                     JOptionPane.showMessageDialog(frame, "Inserisci le informazioni per il piatto!");
