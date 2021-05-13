@@ -9,16 +9,23 @@ import java.util.*;
 public class ChefLogic {
     private static Data data = new Data();
 
+    public ChefLogic(){
+        Load();
+    }
 
     /**
      * metodo per aggiungere un nuovo piatto al menù
-     * @param food nome del piatto da aggiungere
-     * @param price prezzo del piatto da aggiungere
+     //* @param food nome del piatto da aggiungere
+     //* @param price prezzo del piatto da aggiungere
      */
-    public void addFood(String food, Double price){
+    public void addFood(Piatto nuovo){
         //System.out.println(food);
-        Piatto nuovo = null;
-        Iterator<Piatto> itr= Data.getMenu().iterator();
+        if(!(data.getMenu().contains(nuovo))){
+            data.getMenu().add(nuovo);
+        }
+
+        /*Piatto nuovo = null;
+        Iterator<Piatto> itr= data.getMenu().iterator();
         while(itr.hasNext()){
             Piatto p = itr.next();
             if(!(p.getNome().equals(food) && p.getPrezzo()==price )){
@@ -26,11 +33,10 @@ public class ChefLogic {
             }
         }
         if(nuovo!=null){
-            Data.getMenu().add(nuovo);
-        }
+            data.getMenu().add(nuovo);
+        }*/
 
-
-        System.out.println(Data.getMenu());
+        System.out.println(data.getMenu());
     }
 
     /**
@@ -44,11 +50,12 @@ public class ChefLogic {
      * metodo per rimuovere un piatto (se esiste) dal menù
      * @param piatto piatto da rimuovere
      */
-    public static void removeFood(Piatto piatto){
-        if (Data.getMenu().contains(piatto)){
-            Data.getMenu().remove(piatto);
+    public  void removeFood(Piatto piatto){
+        if(data.getMenu().contains(piatto)){
+            System.out.println("ce sta");
         }
-        System.out.println(Data.getMenu());
+        data.getMenu().remove(piatto);
+        System.out.println(data.getMenu());
 
     }
 
@@ -58,13 +65,18 @@ public class ChefLogic {
      * @param piatto_nuovo nuovo piatto modificato
      */
     public void editFood(Piatto piatto_vecchio, Piatto piatto_nuovo){
-        if(Data.getMenu().contains(piatto_vecchio)){
-            int index= Data.getMenu().indexOf(piatto_vecchio);
-            Data.getMenu().set(index,piatto_nuovo);
+        if(data.getMenu().contains(piatto_vecchio)){
+            int index= data.getMenu().indexOf(piatto_vecchio);
+            data.getMenu().set(index,piatto_nuovo);
         }
+        System.out.println(data.getMenu());
     }
 
-    public ArrayList<Piatto> getMenu(){
-        return Data.getMenu();
+    public List<Piatto> getMenu(){
+        return data.getMenu();
+    }
+
+    public void Load(){
+        data.loadMenu();
     }
 }

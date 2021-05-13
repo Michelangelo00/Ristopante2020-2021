@@ -2,16 +2,19 @@ package Logic;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class Data {
 
     private static File inputfile= new File("menu.txt");
-    private static ArrayList<Piatto> menu= new ArrayList<>();
+    //private static ArrayList<Piatto> menu= new ArrayList<>();
+    private List<Piatto> menu= Collections.synchronizedList(new ArrayList<Piatto>());
     private static ArrayList<Ordine> ordini = new ArrayList<>();
 
     public Data(){
-        loadMenu();
+
     }
 
 
@@ -35,14 +38,14 @@ public class Data {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-           System.out.println(getMenu());
+           System.out.println(getMenu()+"sempreio");
     }
 
-    public static ArrayList<Piatto> getMenu() {
-        return menu;
+    public  List<Piatto> getMenu() {
+        return  menu;
     }
 
-    public static void WriteToFile(){
+    public  void WriteToFile(){
 
         try{
             BufferedWriter out = new BufferedWriter(new FileWriter(inputfile,false));
@@ -64,7 +67,7 @@ public class Data {
         return ordini;
     }
 
-    public static void RemovePiatto(Piatto piatto){
+    public  void RemovePiatto(Piatto piatto){
         menu.remove(piatto);
     }
 }

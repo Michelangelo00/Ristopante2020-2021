@@ -39,12 +39,12 @@ public class Cameriere extends JPanel{
 
 
         //PROVA INPUT MENU/////////////////////////////////////////////////////////
-        ArrayList<Piatto> menu = Data.getMenu();
+        /*ArrayList<Piatto> menu = da.getMenu();
         DefaultListModel dlmMenu = new DefaultListModel();
         for(Piatto piatto : menu){
             dlmMenu.addElement(piatto);
         }
-        this.menuList.setModel(dlmMenu);
+        this.menuList.setModel(dlmMenu);*/
 
         ////////////////////////////////////////////////////////////////////////////
 

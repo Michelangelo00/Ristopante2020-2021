@@ -26,11 +26,11 @@ public class Chef extends JPanel{
     private JButton confermaAggiunteButton;
     private JButton modificaPiattoButton;
     private JButton rimuoviPiattoButton;
-    private JList list1;
     private JPanel ListPanel;
+    private JButton indietroButton;
     private GridBagConstraints c = new GridBagConstraints();
-    private JList MenuList;
-    private DefaultListModel<Piatto> model= new DefaultListModel<>();
+    private JList<Piatto> MenuList;
+    private final DefaultListModel<Piatto> model= new DefaultListModel<>();
 
 
     public Chef() {
@@ -51,12 +51,25 @@ public class Chef extends JPanel{
         aggiungiPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nome= PiattoNome.getText();
-                Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
-                chefLogic.addFood(nome,prezzo);
-                Add(new Piatto(nome,prezzo));
-                PiattoNome.setText("");
-                PiattoPrezzo.setText("");
+                if (!(PiattoNome.getText().equals("")&&PiattoPrezzo.getText().equals(""))) {
+                    if (PiattoNome.getText().equals("")) {
+                        JOptionPane.showMessageDialog(frame, "Inserisci il nome del piatto!");
+                    } else if (PiattoPrezzo.getText().equals("")) {
+                        JOptionPane.showMessageDialog(frame, "Inserisci il prezzo del piatto!");
+                    }else{
+                        String nome= PiattoNome.getText();
+                        Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
+                        chefLogic.addFood(new Piatto(nome,prezzo));
+                        Add(new Piatto(nome,prezzo));
+                        PiattoNome.setText("");
+                        PiattoPrezzo.setText("");
+                        JOptionPane.showMessageDialog(frame,"Piatto aggiunto!");
+
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Inserisci le informazioni per il piatto!");
+
+                }
             }
         });
 
@@ -67,6 +80,7 @@ public class Chef extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 chefLogic.finalizzaMenu();
+                JOptionPane.showMessageDialog(frame,"Modifiche salvate correttamente!");
             }
         });
 
@@ -76,8 +90,13 @@ public class Chef extends JPanel{
         rimuoviPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChefLogic.removeFood((Piatto) MenuList.getSelectedValue());
-                Delete((Piatto) MenuList.getSelectedValue());
+                if(!(MenuList.getSelectedValue()==null)) {
+                    chefLogic.removeFood(MenuList.getSelectedValue());
+                    Delete(MenuList.getSelectedValue());
+                    JOptionPane.showMessageDialog(frame, "Piatto eliminato correttamente");
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Seleziona il piatto da eliminare!");
+                }
             }
         });
 
@@ -87,13 +106,26 @@ public class Chef extends JPanel{
         modificaPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(!(MenuList.getSelectedValue()==null)) {
                     Piatto modifica = (Piatto) MenuList.getSelectedValue();
-                    String nuovo_nome= JOptionPane.showInputDialog("Modifica il nome del piatto",modifica.getNome());
-                    double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto",modifica.getPrezzo()));
-                    Piatto piatto_modificato =new Piatto(nuovo_nome,nuovo_prezzo);
-                    chefLogic.editFood((Piatto) MenuList.getSelectedValue(),piatto_modificato);
-                    Edit(MenuList.getSelectedIndex(),piatto_modificato);
+                    String nuovo_nome = JOptionPane.showInputDialog("Modifica il nome del piatto", modifica.getNome());
+                    double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto", modifica.getPrezzo()));
+                    Piatto piatto_modificato = new Piatto(nuovo_nome, nuovo_prezzo);
+                    chefLogic.editFood(MenuList.getSelectedValue(), piatto_modificato);
+                    Edit(MenuList.getSelectedIndex(), piatto_modificato);
+                    JOptionPane.showMessageDialog(frame, "Piatto modificato correttamente!");
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Seleziona il piatto da modificare!");
+                }
 
+            }
+        });
+        indietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                chefLogic.getMenu().clear();
+                HomePage homePage = new HomePage();
             }
         });
     }
@@ -103,6 +135,7 @@ public class Chef extends JPanel{
      */
     public void LoadMenuList(){
         for (Piatto p : chefLogic.getMenu()) {
+            System.out.println(p);
             model.addElement(p);
         }
         MenuList = new JList();

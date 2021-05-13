@@ -4,5 +4,6 @@ Tiramisù,3.5
 Cacio e Pepe,12.0
 Pollo e cicoria,12.0
 Lasagna,12.0
-Cozze,6.0
 Calamari,9.0
+Porchetta,9.0
+Panna Cotta,4.0
