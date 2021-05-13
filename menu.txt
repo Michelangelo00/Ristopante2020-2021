@@ -1,9 +1,8 @@
+Pollo e patate,12.0
 Carbonara,10.0
-Gricia,22.0
-Tiramisù,3.5
-Cacio e Pepe,12.0
-Pollo e cicoria,12.0
 Lasagna,12.0
-Calamari,9.0
+Tiramisù,3.5
 Porchetta,9.0
-Panna Cotta,4.0
+Panna Cotta,4.5
+Cacio e Pepe,12.0
+Calamari,9.0

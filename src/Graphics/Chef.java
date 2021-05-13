@@ -135,7 +135,6 @@ public class Chef extends JPanel{
      */
     public void LoadMenuList(){
         for (Piatto p : chefLogic.getMenu()) {
-            System.out.println(p);
             model.addElement(p);
         }
         MenuList = new JList();

@@ -28,9 +28,7 @@ public class Data {
                     String Nome = record[0].trim();
                     Double Prezzo = Double.parseDouble(record[1].trim());
                     Piatto nuovo= new Piatto(Nome,Prezzo);
-                    if(!menu.contains(nuovo.getNome())) {
-                        menu.add(nuovo);
-                    }
+                    menu.add(nuovo);
                     linea= reader.readLine();
                 }
             } catch (FileNotFoundException e) {

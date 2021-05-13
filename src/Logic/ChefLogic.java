@@ -19,22 +19,20 @@ public class ChefLogic {
      //* @param price prezzo del piatto da aggiungere
      */
     public void addFood(Piatto nuovo){
-        //System.out.println(food);
-        if(!(data.getMenu().contains(nuovo))){
-            data.getMenu().add(nuovo);
-        }
-
-        /*Piatto nuovo = null;
-        Iterator<Piatto> itr= data.getMenu().iterator();
+        boolean add=false;
+        ListIterator<Piatto> itr= data.getMenu().listIterator();
         while(itr.hasNext()){
             Piatto p = itr.next();
-            if(!(p.getNome().equals(food) && p.getPrezzo()==price )){
-                nuovo= new Piatto(food,price);
+            if(p.getNome().equals(nuovo.getNome())){
+                add=false;
+                break;
+            }else{
+                add=true;
             }
         }
-        if(nuovo!=null){
+        if(add){
             data.getMenu().add(nuovo);
-        }*/
+        }
 
         System.out.println(data.getMenu());
     }
@@ -51,12 +49,24 @@ public class ChefLogic {
      * @param piatto piatto da rimuovere
      */
     public  void removeFood(Piatto piatto){
-        if(data.getMenu().contains(piatto)){
-            System.out.println("ce sta");
+        boolean remove=false;
+        int index=0;
+        ListIterator<Piatto> itr= data.getMenu().listIterator();
+        while(itr.hasNext()){
+            Piatto p = itr.next();
+            if(p.getNome().equals(piatto.getNome())){
+                index=itr.nextIndex()-1;
+                remove=true;
+                break;
+            }else{
+                remove=false;
+            }
         }
-        data.getMenu().remove(piatto);
-        System.out.println(data.getMenu());
+        if(remove){
+            data.getMenu().remove(index);
+        }
 
+        System.out.println(data.getMenu());
     }
 
     /**
