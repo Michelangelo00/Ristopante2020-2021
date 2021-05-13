@@ -83,7 +83,7 @@ public class ChefLogic {
         System.out.println(data.getMenu());
     }
 
-    public List<Piatto> getMenu(){
+    public ArrayList<Piatto> getMenu(){
         return data.getMenu();
     }
 

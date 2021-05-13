@@ -5,4 +5,7 @@ Tiramisù,3.5
 Porchetta,9.0
 Panna Cotta,4.5
 Cacio e Pepe,12.0
-Calamari,9.0
+Calamari,8.0
+Fagioli,3.5
+Caprese,6.0
+Orata al cartoccio,15.0

@@ -9,8 +9,8 @@ import java.util.Map;
 public class Data {
 
     private static File inputfile= new File("menu.txt");
-    //private static ArrayList<Piatto> menu= new ArrayList<>();
-    private List<Piatto> menu= Collections.synchronizedList(new ArrayList<Piatto>());
+    private static ArrayList<Piatto> menu= new ArrayList<>();
+    //private List<Piatto> menu= Collections.synchronizedList(new ArrayList<Piatto>());
     private static ArrayList<Ordine> ordini = new ArrayList<>();
 
     public Data(){
@@ -36,10 +36,9 @@ public class Data {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-           System.out.println(getMenu()+"sempreio");
     }
 
-    public  List<Piatto> getMenu() {
+    public  ArrayList<Piatto> getMenu() {
         return  menu;
     }
 
