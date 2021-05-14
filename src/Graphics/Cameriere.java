@@ -3,6 +3,8 @@ package Graphics;
 import Logic.*;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +20,8 @@ public class Cameriere extends JPanel{
     private JLabel menuText;
     private JButton rimuoviPiattoButton;
     private JButton indietroButton;
+    private JLabel tavoloLabel;
+    private JButton modificaButton;
     private JFrame frame;
 
     private Ordine ordine; //inizializzo ordine
@@ -31,7 +35,7 @@ public class Cameriere extends JPanel{
          * costruisco la base grafica
          */
         frame= new JFrame("Cameriere");
-        frame.setSize(new Dimension(500,500));
+        frame.setBounds(400, 300, 1000, 600);
         frame.setContentPane(CamerierePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -61,12 +65,21 @@ public class Cameriere extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ordine != null && ordine.getTavoloID() != 0){
-                    Piatto piatto = menuList.getSelectedValue();
-                    cameriereL.AggiungiPiatto(ordine,piatto);
-                    System.out.println("Aggiunto piatto: " + piatto + " all'ordine: " + ordine);
+                    Piatto piattoQ = menuList.getSelectedValue();
 
-                    //GPX
-                    dlmOrdine.addElement(piatto);
+                    if(ordine.getPiatti().contains(piattoQ)){
+                        piattoQ.setQuantita(piattoQ.getQuantita() + 1);
+                        System.out.println("questo piatto esisteva gia, ne ho aggiunto un altro");
+                    }
+                    else{
+                        cameriereL.AggiungiPiatto(ordine,piattoQ);
+                        System.out.println("Aggiunto piatto: " + piattoQ + " all'ordine: " + ordine);
+
+                        //GPX
+                        dlmOrdine.addElement(piattoQ);
+                    }
+
+
                 }
             }
         });
@@ -79,6 +92,7 @@ public class Cameriere extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 int numeroTavolo = Integer.parseInt(JOptionPane.showInputDialog(CamerierePanel,"Inserire numero del tavolo"));
                 ordine = cameriereL.CreaOrdine(numeroTavolo);
+                tavoloLabel.setText("Tavolo N." + numeroTavolo); //setto grafica del numero del tavolo
                 System.out.println("Creato ordine: " + ordine);
             }
         });
@@ -93,7 +107,8 @@ public class Cameriere extends JPanel{
                     cameriereL.FinalizzaOrdine(ordine); //invio l'ordine al cuoco
                     dlmOrdine.clear(); //svuoto la GUI
                     ordine.SvuotaOrdine(); // svuoto l'ordine
-                    ordine.setTavoloID(0);
+                    ordine.setTavoloID(0); //resetto il nuemro del tavolo
+                    tavoloLabel.setText("Tavolo N."); //resetto la grafica del numero tavolo
                     System.out.println("Ordine: " + ordine + " finalizzato");
                 }
             }
@@ -121,6 +136,14 @@ public class Cameriere extends JPanel{
                 frame.dispose();
                 cameriereL.getMenu().clear();
                 HomePage homePage= new HomePage();
+            }
+        });
+        modificaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Piatto piattoQ = ordineList.getSelectedValue();
+                int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
+                piattoQ.setQuantita(nuovaQuantita);
             }
         });
     }
