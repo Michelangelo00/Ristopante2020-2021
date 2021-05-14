@@ -38,6 +38,7 @@ public class Chef extends JPanel{
     private final DefaultListModel<Piatto> DolciModel= new DefaultListModel<>();
     private ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
 
+
     public Chef() {
         /**
          * Costruttore della base grafica
@@ -117,7 +118,7 @@ public class Chef extends JPanel{
         rimuoviPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!(PrimiList.getSelectedValue()==null)) {
+                if(!(PrimiList.getSelectedValue()==null || BevandeList.getSelectedValue()==null || SecondiList.getSelectedValue()==null || DolciList.getSelectedValue()==null)) {
                     chefLogic.removeFood(PrimiList.getSelectedValue());
                     //Delete(MenuList.getSelectedValue());
                     JOptionPane.showMessageDialog(frame,"Piatto rimosso correttamente","Rimuovi piatto",JOptionPane.INFORMATION_MESSAGE);
@@ -133,12 +134,12 @@ public class Chef extends JPanel{
         modificaPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!(PrimiList.getSelectedValue()==null)) {
-                    Piatto modifica = PrimiList.getSelectedValue();
+                if(!(SecondiList.getSelectedValue()==null)) {
+                    Piatto modifica = (Piatto) SecondiList.getSelectedValue();
                     String nuovo_nome = JOptionPane.showInputDialog("Modifica il nome del piatto", modifica.getNome());
                     double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto", modifica.getPrezzo()));
-                    Piatto piatto_modificato= chefLogic.editFood(PrimiList.getSelectedValue(), nuovo_nome, nuovo_prezzo);
-                    //Edit(MenuList.getSelectedIndex(), piatto_modificato);
+                    Piatto piatto_modificato= chefLogic.editFood((Piatto) SecondiList.getSelectedValue(), nuovo_nome, nuovo_prezzo);
+                    Edit(SecondiModel,SecondiList.getSelectedIndex(), piatto_modificato);
                     JOptionPane.showMessageDialog(frame,"Piatto modificato correttamente","Modifica piatto",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(frame, "Seleziona il piatto da modificare","Modifica Piatto",JOptionPane.WARNING_MESSAGE);
@@ -166,7 +167,6 @@ public class Chef extends JPanel{
 
     }
 
-    //TODO aggiornare i modelli dopo un add/edit/remove
 
     /**
      * metodo per caricare il modello della lista con i piatti del menù

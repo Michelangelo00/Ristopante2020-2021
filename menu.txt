@@ -2,3 +2,7 @@ Acqua,2.0,BEVANDE
 Coca Cola,3.5,BEVANDE
 Gricia,9.0,PRIMI
 Carbonara,9.0,PRIMI
+Pollo con Patate,15.0,SECONDI
+Vino Bianco,5.0,BEVANDE
+Tiramisù,3.5,DOLCI
+Fettuccine ai funghi,7.0,PRIMI
