@@ -34,10 +34,10 @@
         <properties>
           <enabled value="true"/>
           <model>
-            <item value="ciao"/>
-            <item value="cacca"/>
-            <item value="proio"/>
-            <item value="nabbo"/>
+            <item value="prenditela"/>
+            <item value="con"/>
+            <item value="calma"/>
+            <item value="-Lollo"/>
           </model>
         </properties>
       </component>
