@@ -27,9 +27,7 @@ public class Data {
                     String[] record = linea.split(",");
                     String Nome = record[0].trim();
                     Double Prezzo = Double.parseDouble(record[1].trim());
-                    String type = record[2].trim();
-                    Piatto.Type tipologia = Piatto.Type.valueOf(type);
-                    Piatto nuovo= new Piatto(Nome,Prezzo, tipologia);
+                    Piatto nuovo= new Piatto(Nome,Prezzo);
                     menu.add(nuovo);
                     linea= reader.readLine();
                 }
@@ -49,7 +47,7 @@ public class Data {
         try{
             BufferedWriter out = new BufferedWriter(new FileWriter(inputfile,false));
             for(Piatto h: menu){
-                out.write(h.getNome()+","+h.getPrezzo()+","+h.getTipologia());
+                out.write(h.getNome()+","+h.getPrezzo());
                 out.write("\n");
             }
             out.close();

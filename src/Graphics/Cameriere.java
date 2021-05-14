@@ -18,15 +18,21 @@ public class Cameriere extends JPanel{
     private JLabel menuText;
     private JButton rimuoviPiattoButton;
     private JButton indietroButton;
+    private JLabel tavoloLabel;
     private JFrame frame;
 
     private Ordine ordine; //inizializzo ordine
+    private CameriereLogic cameriereL = new CameriereLogic(); //creo istanza di cameriere logic
+
+
 
     public Cameriere(){
 
-        CameriereLogic cameriereL = new CameriereLogic(); //creo istanza di cameriere logic
+        if(!cameriereL.IsLoaded()){
+            cameriereL.Load();
+        }
 
-
+        ArrayList<Piatto> menu = new ArrayList<>(cameriereL.getMenu());
 
         /**
          * costruisco la base grafica
@@ -38,15 +44,16 @@ public class Cameriere extends JPanel{
         frame.setVisible(true);
 
 
-        //PROVA INPUT MENU/////////////////////////////////////////////////////////
-        /*ArrayList<Piatto> menu = ChefLogic.getMenu();
+        /**
+         * input menu
+         */
+        System.out.println(menu);
         DefaultListModel dlmMenu = new DefaultListModel();
         for(Piatto piatto : menu){
             dlmMenu.addElement(piatto);
         }
-        this.menuList.setModel(dlmMenu);*/
+        this.menuList.setModel(dlmMenu);
 
-        ////////////////////////////////////////////////////////////////////////////
 
         /**
          * dlm lista dell'ordine
@@ -79,6 +86,7 @@ public class Cameriere extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 int numeroTavolo = Integer.parseInt(JOptionPane.showInputDialog(CamerierePanel,"Inserire numero del tavolo"));
                 ordine = cameriereL.CreaOrdine(numeroTavolo);
+                tavoloLabel.setText("Tavolo N." + numeroTavolo);
                 System.out.println("Creato ordine: " + ordine);
             }
         });
@@ -94,6 +102,7 @@ public class Cameriere extends JPanel{
                     dlmOrdine.clear(); //svuoto la GUI
                     ordine.SvuotaOrdine(); // svuoto l'ordine
                     ordine.setTavoloID(0);
+                    tavoloLabel.setText("Tavolo N.");
                     System.out.println("Ordine: " + ordine + " finalizzato");
                 }
             }

@@ -19,7 +19,7 @@ public class ChefLogic {
      //* @param price prezzo del piatto da aggiungere
      */
     public boolean addFood(Piatto nuovo){
-        boolean add= true;
+        boolean add=false;
         ListIterator<Piatto> itr= data.getMenu().listIterator();
         while(itr.hasNext()){
             Piatto p = itr.next();
@@ -71,17 +71,13 @@ public class ChefLogic {
     /**
      * metodo per modificare un piatto (se esiste) nel menù
      * @param piatto_vecchio vecchio piatto da modificare
-     //* @param piatto_nuovo nuovo piatto modificato
+     * @param piatto_nuovo nuovo piatto modificato
      */
-    public Piatto editFood(Piatto piatto_vecchio, String nuovo_nome, double nuovo_prezzo){
-        int index = 0;
+    public void editFood(Piatto piatto_vecchio, Piatto piatto_nuovo){
         if(data.getMenu().contains(piatto_vecchio)){
-            index= data.getMenu().indexOf(piatto_vecchio);
-            //data.getMenu().set(index,piatto_nuovo);
-            data.getMenu().get(index).setNome(nuovo_nome);
-            data.getMenu().get(index).setPrezzo(nuovo_prezzo);
+            int index= data.getMenu().indexOf(piatto_vecchio);
+            data.getMenu().set(index,piatto_nuovo);
         }
-        return data.getMenu().get(index);
     }
 
     public ArrayList<Piatto> getMenu(){
