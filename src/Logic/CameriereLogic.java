@@ -1,8 +1,14 @@
 package Logic;
 
+import java.util.ArrayList;
+
 public class CameriereLogic {
 
+    private static Data data = new Data();
 
+    public CameriereLogic(){
+        Load();
+    }
 
     /**
      * creo ordine del tavolo e lo restituisco
@@ -59,5 +65,13 @@ public class CameriereLogic {
     public void FinalizzaOrdine(Ordine ordine){
         ordine.setStato(1);
         Data.loadOrdini(ordine);
+    }
+
+    public ArrayList<Piatto> getMenu(){
+        return data.getMenu();
+    }
+
+    public void Load(){
+        data.loadMenu();
     }
 }

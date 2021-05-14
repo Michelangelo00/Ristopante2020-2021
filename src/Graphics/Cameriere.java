@@ -27,7 +27,6 @@ public class Cameriere extends JPanel{
         CameriereLogic cameriereL = new CameriereLogic(); //creo istanza di cameriere logic
 
 
-
         /**
          * costruisco la base grafica
          */
@@ -38,15 +37,16 @@ public class Cameriere extends JPanel{
         frame.setVisible(true);
 
 
-        //PROVA INPUT MENU/////////////////////////////////////////////////////////
-        /*ArrayList<Piatto> menu = ChefLogic.getMenu();
+        /**
+         * PORCODIO
+         */
+        ArrayList<Piatto> menu = cameriereL.getMenu();
+        System.out.println(menu);
         DefaultListModel dlmMenu = new DefaultListModel();
         for(Piatto piatto : menu){
             dlmMenu.addElement(piatto);
         }
-        this.menuList.setModel(dlmMenu);*/
-
-        ////////////////////////////////////////////////////////////////////////////
+        this.menuList.setModel(dlmMenu);
 
         /**
          * dlm lista dell'ordine
@@ -119,6 +119,7 @@ public class Cameriere extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                cameriereL.getMenu().clear();
                 HomePage homePage= new HomePage();
             }
         });
