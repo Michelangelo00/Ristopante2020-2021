@@ -31,11 +31,14 @@ public class Chef extends JPanel{
     private JPanel BevandePanel;
     private JComboBox<String> TypeBox;
     private JPanel TypeBoxPanel;
+    private JList AntipastiList;
+    private JPanel AntipastiPanel;
     private JList<Piatto> PrimiList;
     private final DefaultListModel<Piatto> BevandeModel= new DefaultListModel<>();
     private final DefaultListModel<Piatto> PrimiModel= new DefaultListModel<>();
     private final DefaultListModel<Piatto> SecondiModel= new DefaultListModel<>();
     private final DefaultListModel<Piatto> DolciModel= new DefaultListModel<>();
+    private final DefaultListModel<Piatto> AntiPastiModel= new DefaultListModel<>();
     private ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
 
 
@@ -48,7 +51,7 @@ public class Chef extends JPanel{
         frame.setBounds(400, 300, 1000, 600);
         frame.setContentPane(ChefPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.pack();
+        frame.pack();
         frame.setVisible(true);
 
 
@@ -85,6 +88,8 @@ public class Chef extends JPanel{
                                 Add(SecondiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
                             }else if(tipo.toString().equals("DOLCI")){
                                 Add(DolciModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
+                            }else if(tipo.toString().equals("ANTIPASTI")){
+                                Add(AntiPastiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
                             }
                             PiattoNome.setText("");
                             PiattoPrezzo.setText("");
@@ -118,10 +123,16 @@ public class Chef extends JPanel{
         rimuoviPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!(PrimiList.getSelectedValue()==null || BevandeList.getSelectedValue()==null || SecondiList.getSelectedValue()==null || DolciList.getSelectedValue()==null)) {
-                    chefLogic.removeFood(PrimiList.getSelectedValue());
-                    //Delete(MenuList.getSelectedValue());
-                    JOptionPane.showMessageDialog(frame,"Piatto rimosso correttamente","Rimuovi piatto",JOptionPane.INFORMATION_MESSAGE);
+                if(!(FindRemoveModels()==null)) {
+                    JList lista = FindRemoveModels();
+                    int risposta= JOptionPane.showConfirmDialog(frame,"Sei sicuro di voler eliminare"+lista.getSelectedValue(),"Elimina piatto",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                    if(risposta==JOptionPane.YES_OPTION){
+                        chefLogic.removeFood((Piatto) lista.getSelectedValue());
+                        DefaultListModel modello = (DefaultListModel) lista.getModel();
+                        Delete(modello, (Piatto) lista.getSelectedValue());
+                        lista.clearSelection();
+                        JOptionPane.showMessageDialog(frame,"Piatto rimosso correttamente","Rimuovi piatto",JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }else{
                     JOptionPane.showMessageDialog(frame, "Seleziona il piatto da eliminare","Selezione Piatto",JOptionPane.WARNING_MESSAGE);
                 }
@@ -134,15 +145,17 @@ public class Chef extends JPanel{
         modificaPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!(SecondiList.getSelectedValue()==null)) {
-                    Piatto modifica = (Piatto) SecondiList.getSelectedValue();
+                if(!(FindEditModels()==null)) {
+                    JList lista = FindEditModels();
+                    Piatto modifica = (Piatto) lista.getSelectedValue();
                     String nuovo_nome = JOptionPane.showInputDialog("Modifica il nome del piatto", modifica.getNome());
                     double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto", modifica.getPrezzo()));
-                    Piatto piatto_modificato= chefLogic.editFood((Piatto) SecondiList.getSelectedValue(), nuovo_nome, nuovo_prezzo);
-                    Edit(SecondiModel,SecondiList.getSelectedIndex(), piatto_modificato);
-                    JOptionPane.showMessageDialog(frame,"Piatto modificato correttamente","Modifica piatto",JOptionPane.INFORMATION_MESSAGE);
+                    Piatto piatto_modificato = chefLogic.editFood((Piatto) lista.getSelectedValue(), nuovo_nome, nuovo_prezzo);
+                    DefaultListModel modello = (DefaultListModel) lista.getModel();
+                    Edit(modello, lista.getSelectedIndex(), piatto_modificato);
+                    JOptionPane.showMessageDialog(frame, "Piatto modificato correttamente", "Modifica piatto", JOptionPane.INFORMATION_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(frame, "Seleziona il piatto da modificare","Modifica Piatto",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Seleziona il piatto da modificare","Selezione Piatto",JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -181,6 +194,8 @@ public class Chef extends JPanel{
                 SecondiModel.addElement(p);
             }else if(p.getTipologia().equals(DOLCI)) {
                 DolciModel.addElement(p);
+            }else if(p.getTipologia().equals(ANTIPASTI)) {
+                AntiPastiModel.addElement(p);
             }
         }
 
@@ -189,14 +204,17 @@ public class Chef extends JPanel{
         SecondiList = new JList();
         DolciList = new JList();
         BevandeList = new JList();
+        AntipastiList = new JList();
         PrimiList.setModel(PrimiModel);
         SecondiList.setModel(SecondiModel);
         DolciList.setModel(DolciModel);
         BevandeList.setModel(BevandeModel);
+        AntipastiList.setModel(AntiPastiModel);
         PrimiPanel.add(PrimiList);
         SecondiPanel.add(SecondiList);
         DolciPanel.add(DolciList);
         BevandePanel.add(BevandeList);
+        AntipastiPanel.add(AntipastiList);
         TypeBoxPanel.add(TypeBox);
 
     }
@@ -267,6 +285,40 @@ public class Chef extends JPanel{
             frame.dispose();
             chefLogic.getMenu().clear();
         }
+    }
+
+    public JList FindEditModels(){
+        DefaultListModel bmodel = (DefaultListModel) BevandeList.getModel();
+        DefaultListModel pmodel = (DefaultListModel) PrimiList.getModel();
+        DefaultListModel smodel = (DefaultListModel) SecondiList.getModel();
+        DefaultListModel dmodel = (DefaultListModel) DolciList.getModel();
+        if(bmodel.contains(BevandeList.getSelectedValue())){
+            return BevandeList;
+        }else if(pmodel.contains(PrimiList.getSelectedValue())){
+            return PrimiList;
+        }else if(smodel.contains(SecondiList.getSelectedValue())){
+            return SecondiList;
+        }else if(dmodel.contains(DolciList.getSelectedValue())){
+            return DolciList;
+        }
+        return null;
+    }
+
+    public JList FindRemoveModels(){
+        DefaultListModel bmodel = (DefaultListModel) BevandeList.getModel();
+        DefaultListModel pmodel = (DefaultListModel) PrimiList.getModel();
+        DefaultListModel smodel = (DefaultListModel) SecondiList.getModel();
+        DefaultListModel dmodel = (DefaultListModel) DolciList.getModel();
+        if(bmodel.contains(BevandeList.getSelectedValue())){
+            return BevandeList;
+        }else if(pmodel.contains(PrimiList.getSelectedValue())){
+            return PrimiList;
+        }else if(smodel.contains(SecondiList.getSelectedValue())){
+            return SecondiList;
+        }else if(dmodel.contains(DolciList.getSelectedValue())){
+            return DolciList;
+        }
+        return null;
     }
 
 }

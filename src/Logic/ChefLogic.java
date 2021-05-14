@@ -77,7 +77,6 @@ public class ChefLogic {
         int index = 0;
         if(data.getMenu().contains(piatto_vecchio)){
             index= data.getMenu().indexOf(piatto_vecchio);
-            //data.getMenu().set(index,piatto_nuovo);
             data.getMenu().get(index).setNome(nuovo_nome);
             data.getMenu().get(index).setPrezzo(nuovo_prezzo);
         }
