@@ -33,12 +33,7 @@
         </constraints>
         <properties>
           <enabled value="true"/>
-          <model>
-            <item value="prenditela"/>
-            <item value="con"/>
-            <item value="calma"/>
-            <item value="-Lollo"/>
-          </model>
+          <model/>
         </properties>
       </component>
     </children>
