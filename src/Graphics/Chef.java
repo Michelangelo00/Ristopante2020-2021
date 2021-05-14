@@ -1,14 +1,11 @@
 package Graphics;
 
 import Logic.ChefLogic;
-import Logic.Data;
 import Logic.Piatto;
-
+import static Logic.Piatto.Type.*;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * classe che implementa graficamente la figura dello Chef
@@ -24,11 +21,21 @@ public class Chef extends JPanel{
     private JButton confermaAggiunteButton;
     private JButton modificaPiattoButton;
     private JButton rimuoviPiattoButton;
-    private JPanel ListPanel;
+    private JPanel PrimiPanel;
     private JButton indietroButton;
-    private JScrollBar scrollBar1;
+    private JList SecondiList;
+    private JList DolciList;
+    private JPanel SecondiPanel;
+    private JPanel DolciPanel;
+    private JList BevandeList;
+    private JPanel BevandePanel;
+    private JComboBox<String> TypeBox;
+    private JPanel TypeBoxPanel;
     private JList<Piatto> MenuList;
-    private final DefaultListModel<Piatto> model= new DefaultListModel<>();
+    private final DefaultListModel<Piatto> BevandeModel= new DefaultListModel<>();
+    private final DefaultListModel<Piatto> PrimiModel= new DefaultListModel<>();
+    private final DefaultListModel<Piatto> SecondiModel= new DefaultListModel<>();
+    private final DefaultListModel<Piatto> DolciModel= new DefaultListModel<>();
     private ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
 
     public Chef() {
@@ -37,10 +44,10 @@ public class Chef extends JPanel{
          */
         frame = new JFrame("Chef");
         LoadMenuList();
-        frame.setBounds(600, 300, 820, 600);
+        frame.setBounds(400, 300, 1000, 600);
         frame.setContentPane(ChefPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        //frame.pack();
         frame.setVisible(true);
 
 
@@ -51,21 +58,25 @@ public class Chef extends JPanel{
         aggiungiPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String ComboBoxSelection= TypeBox.getSelectedItem().toString();
                 if (!(PiattoNome.getText().equals("")&&PiattoPrezzo.getText().equals(""))) {
                     if (PiattoNome.getText().equals("")) {
                         JOptionPane.showMessageDialog(frame, "Inserisci il nome del piatto!");
                     } else if (PiattoPrezzo.getText().equals("")) {
                         JOptionPane.showMessageDialog(frame, "Inserisci il prezzo del piatto!");
+                    }else if (ComboBoxSelection.equals("SELEZIONA")) {
+                        JOptionPane.showMessageDialog(frame, "Inserisci la tipologia del piatto!");
+
                     }else{
                         String nome= PiattoNome.getText();
                         Double prezzo= Double.parseDouble(PiattoPrezzo.getText());
-                        if(!chefLogic.addFood(new Piatto(nome,prezzo))){
+                        Enum tipo = (Enum) TypeBox.getSelectedItem();
+                        if(!chefLogic.addFood(new Piatto(nome,prezzo, (Piatto.Type) tipo))){
                             JOptionPane.showMessageDialog(frame,"Piatto gia esistente");
                         }else {
-                            Add(new Piatto(nome, prezzo));
+                            //Add(new Piatto(nome, prezzo, (Piatto.Type) tipo));
                             PiattoNome.setText("");
                             PiattoPrezzo.setText("");
-                            frame.pack();
                             JOptionPane.showMessageDialog(frame,"Piatto aggiunto correttamente","Aggiunta piatto",JOptionPane.INFORMATION_MESSAGE);
                         }
 
@@ -98,8 +109,7 @@ public class Chef extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 if(!(MenuList.getSelectedValue()==null)) {
                     chefLogic.removeFood(MenuList.getSelectedValue());
-                    Delete(MenuList.getSelectedValue());
-                    frame.pack();
+                    //Delete(MenuList.getSelectedValue());
                     JOptionPane.showMessageDialog(frame,"Piatto rimosso correttamente","Rimuovi piatto",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(frame, "Seleziona il piatto da eliminare","Selezione Piatto",JOptionPane.WARNING_MESSAGE);
@@ -117,10 +127,8 @@ public class Chef extends JPanel{
                     Piatto modifica = MenuList.getSelectedValue();
                     String nuovo_nome = JOptionPane.showInputDialog("Modifica il nome del piatto", modifica.getNome());
                     double nuovo_prezzo = Double.parseDouble(JOptionPane.showInputDialog("Modifica il prezzo del piatto", modifica.getPrezzo()));
-                    Piatto piatto_modificato = new Piatto(nuovo_nome, nuovo_prezzo);
-                    chefLogic.editFood(MenuList.getSelectedValue(), piatto_modificato);
-                    Edit(MenuList.getSelectedIndex(), piatto_modificato);
-                    frame.pack();
+                    Piatto piatto_modificato= chefLogic.editFood(MenuList.getSelectedValue(), nuovo_nome, nuovo_prezzo);
+                    //Edit(MenuList.getSelectedIndex(), piatto_modificato);
                     JOptionPane.showMessageDialog(frame,"Piatto modificato correttamente","Modifica piatto",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(frame, "Seleziona il piatto da modificare","Modifica Piatto",JOptionPane.WARNING_MESSAGE);
@@ -148,25 +156,40 @@ public class Chef extends JPanel{
 
     }
 
+    //TODO aggiornare i modelli dopo un add/edit/remove
+
     /**
      * metodo per caricare il modello della lista con i piatti del menù
      */
     public void LoadMenuList(){
         for (Piatto p : chefLogic.getMenu()) {
-            model.addElement(p);
+            if(p.getTipologia().equals(BEVANDE)) {
+                BevandeModel.addElement(p);
+            }
         }
+        TypeBox = new JComboBox(Piatto.Type.values());
         MenuList = new JList();
-        MenuList.setModel(model);
-        scrollBar1.add(MenuList);
-        ListPanel.add(MenuList);
+        SecondiList = new JList();
+        DolciList = new JList();
+        BevandeList = new JList();
+        MenuList.setModel(PrimiModel);
+        SecondiList.setModel(SecondiModel);
+        DolciList.setModel(DolciModel);
+        BevandeList.setModel(BevandeModel);
+        PrimiPanel.add(MenuList);
+        SecondiPanel.add(SecondiList);
+        DolciPanel.add(DolciList);
+        BevandePanel.add(BevandeList);
+        TypeBoxPanel.add(TypeBox);
+
     }
 
     /**
      * Metodo per aggiungere un piatto al modello
      * @param piatto piatto da aggiungere
      */
-    public void Add(Piatto piatto){
-        model.addElement(piatto);
+    public void Add(DefaultListModel modello, Piatto piatto){
+        modello.addElement(piatto);
     }
 
     /**
@@ -174,16 +197,16 @@ public class Chef extends JPanel{
      * @param index indice del piatto da modificare
      * @param piatto_nuovo piatto modificato
      */
-    public void Edit(int index, Piatto piatto_nuovo){
-        model.set(index,piatto_nuovo);
+    public void Edit(DefaultListModel modello,int index, Piatto piatto_nuovo){
+        modello.set(index,piatto_nuovo);
     }
 
     /**
      * Metodo per eliminare un piatto dal modello
      * @param piatto piatto da eliminare
      */
-    public void Delete(Piatto piatto){
-        model.removeElement(piatto);
+    public void Delete(DefaultListModel modello ,Piatto piatto){
+        modello.removeElement(piatto);
     }
 
     /**

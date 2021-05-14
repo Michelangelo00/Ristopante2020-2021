@@ -39,7 +39,7 @@ public class Cameriere extends JPanel{
 
 
         //PROVA INPUT MENU/////////////////////////////////////////////////////////
-        /*ArrayList<Piatto> menu = da.getMenu();
+        /*ArrayList<Piatto> menu = ChefLogic.getMenu();
         DefaultListModel dlmMenu = new DefaultListModel();
         for(Piatto piatto : menu){
             dlmMenu.addElement(piatto);

@@ -8,16 +8,28 @@ public class Piatto {
     private String nome; //nome del piatto
     private double prezzo; //prezzo del piatto
     private int quantita;
+    private Type tipologia;
+
+
+    public enum Type{
+        SELEZIONA,
+        ANTIPASTI,
+        PRIMI,
+        SECONDI,
+        DOLCI,
+        BEVANDE,
+    }
 
     /**
      * costruttore della classe piatto
      * @param nome
      * @param prezzo
      */
-    public Piatto(String nome, double prezzo) {
+    public Piatto(String nome, double prezzo, Type tipologia) {
         this.nome = nome;
         this.prezzo = prezzo;
         this.quantita = 1;
+        this.tipologia= tipologia;
     }
 
     /**
@@ -26,7 +38,7 @@ public class Piatto {
      * @param prezzo
      * @param quantita
      */
-    public Piatto(String nome, double prezzo, int quantita) {
+    public Piatto(String nome, double prezzo, int quantita, Type tipologia) {
         this.nome = nome;
         this.prezzo = prezzo;
         this.quantita = quantita;
@@ -59,5 +71,9 @@ public class Piatto {
 
     public void setQuantita(int quantita) {
         this.quantita = quantita;
+    }
+
+    public Type getTipologia() {
+        return tipologia;
     }
 }

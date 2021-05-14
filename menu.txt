@@ -1,17 +1,2 @@
-Pollo e patate,12.0
-Carbonara,10.0
-Lasagna,12.0
-Tiramisù,3.5
-Porchetta,9.0
-Panna Cotta,4.5
-Cacio e Pepe,12.0
-Calamari,8.0
-Fagioli,3.5
-Caprese,6.0
-Orata al cartoccio,15.0
-Polpette al sugo,6.0
-Bruschette,3.0
-Patatine fritte,4.0
-Insalata,5.0
-Piselli,3.5
-Supplì,1.0
+Acqua,2.0,BEVANDE
+Coca Cola,3.5,BEVANDE
