@@ -6,10 +6,7 @@ import Logic.Piatto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ContainerAdapter;
-import java.awt.event.ContainerEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -138,26 +135,17 @@ public class Chef extends JPanel{
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!(chefLogic.getMenu().equals(changed))){
-                    //TODO Aggiornare l'array changed
-                    int risposta= JOptionPane.showConfirmDialog(frame,"Non hai confermato le modifiche, intendi farlo?","Conferma modfiche",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-                    if(risposta==JOptionPane.YES_OPTION){
-                        chefLogic.finalizzaMenu();
-                        frame.dispose();
-                        chefLogic.getMenu().clear();
-                        HomePage homePage = new HomePage();
-                    }else{
-                        frame.dispose();
-                        chefLogic.getMenu().clear();
-                        HomePage homePage = new HomePage();
-                    }
-                }else {
-                    frame.dispose();
-                    chefLogic.getMenu().clear();
-                    HomePage homePage = new HomePage();
-                }
+                ConfermaBack();
             }
         });
+
+       frame.addWindowListener(new WindowAdapter() {
+           @Override
+           public void windowClosing(WindowEvent e) {
+               ConfermaClose();
+           }
+       });
+
     }
 
     /**
@@ -196,6 +184,49 @@ public class Chef extends JPanel{
      */
     public void Delete(Piatto piatto){
         model.removeElement(piatto);
+    }
+
+    /**
+     * Metodo per salvare le modifiche in caso di ritorno alla homepage
+     */
+    public void ConfermaBack(){
+        if(!(chefLogic.getMenu().equals(changed))){
+            int risposta= JOptionPane.showConfirmDialog(frame,"Non hai confermato le modifiche, intendi farlo?","Conferma modfiche",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(risposta==JOptionPane.YES_OPTION){
+                chefLogic.finalizzaMenu();
+                frame.dispose();
+                chefLogic.getMenu().clear();
+                HomePage homePage = new HomePage();
+            }else{
+                frame.dispose();
+                chefLogic.getMenu().clear();
+                HomePage homePage = new HomePage();
+            }
+        }else {
+            frame.dispose();
+            chefLogic.getMenu().clear();
+            HomePage homePage = new HomePage();
+        }
+    }
+
+    /**
+     * Metodo per salvare le modifiche in caso di chiusura dell'applicazione
+     */
+    public void ConfermaClose(){
+        if(!(chefLogic.getMenu().equals(changed))){
+            int risposta= JOptionPane.showConfirmDialog(frame,"Non hai confermato le modifiche, intendi farlo?","Conferma modfiche",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(risposta==JOptionPane.YES_OPTION){
+                chefLogic.finalizzaMenu();
+                frame.dispose();
+                chefLogic.getMenu().clear();
+            }else{
+                frame.dispose();
+                chefLogic.getMenu().clear();
+            }
+        }else {
+            frame.dispose();
+            chefLogic.getMenu().clear();
+        }
     }
 
 }

@@ -13,3 +13,5 @@ Polpette al sugo,6.0
 Bruschette,3.0
 Patatine fritte,4.0
 Insalata,5.0
+Piselli,3.5
+Supplì,1.0
