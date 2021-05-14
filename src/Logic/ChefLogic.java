@@ -66,8 +66,6 @@ public class ChefLogic {
         if(remove){
             data.getMenu().remove(index);
         }
-
-        System.out.println(data.getMenu());
     }
 
     /**
@@ -80,7 +78,6 @@ public class ChefLogic {
             int index= data.getMenu().indexOf(piatto_vecchio);
             data.getMenu().set(index,piatto_nuovo);
         }
-        System.out.println(data.getMenu());
     }
 
     public ArrayList<Piatto> getMenu(){

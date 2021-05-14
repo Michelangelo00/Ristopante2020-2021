@@ -29,10 +29,10 @@ public class Chef extends JPanel{
     private JButton rimuoviPiattoButton;
     private JPanel ListPanel;
     private JButton indietroButton;
-    private GridBagConstraints c = new GridBagConstraints();
+    private JScrollBar scrollBar1;
     private JList<Piatto> MenuList;
     private final DefaultListModel<Piatto> model= new DefaultListModel<>();
-    private final ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
+    private ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
 
     public Chef() {
         /**
@@ -43,6 +43,7 @@ public class Chef extends JPanel{
         frame.setBounds(600, 300, 820, 600);
         frame.setContentPane(ChefPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
         frame.setVisible(true);
 
 
@@ -67,6 +68,7 @@ public class Chef extends JPanel{
                             Add(new Piatto(nome, prezzo));
                             PiattoNome.setText("");
                             PiattoPrezzo.setText("");
+                            frame.pack();
                             JOptionPane.showMessageDialog(frame,"Piatto aggiunto correttamente","Aggiunta piatto",JOptionPane.INFORMATION_MESSAGE);
                         }
 
@@ -87,6 +89,7 @@ public class Chef extends JPanel{
 
                 chefLogic.finalizzaMenu();
                 JOptionPane.showMessageDialog(frame,"Modifiche salvate correttamente!");
+                changed= new ArrayList<>(chefLogic.getMenu());
             }
         });
 
@@ -99,6 +102,7 @@ public class Chef extends JPanel{
                 if(!(MenuList.getSelectedValue()==null)) {
                     chefLogic.removeFood(MenuList.getSelectedValue());
                     Delete(MenuList.getSelectedValue());
+                    frame.pack();
                     JOptionPane.showMessageDialog(frame,"Piatto rimosso correttamente","Rimuovi piatto",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(frame, "Seleziona il piatto da eliminare","Selezione Piatto",JOptionPane.WARNING_MESSAGE);
@@ -119,6 +123,7 @@ public class Chef extends JPanel{
                     Piatto piatto_modificato = new Piatto(nuovo_nome, nuovo_prezzo);
                     chefLogic.editFood(MenuList.getSelectedValue(), piatto_modificato);
                     Edit(MenuList.getSelectedIndex(), piatto_modificato);
+                    frame.pack();
                     JOptionPane.showMessageDialog(frame,"Piatto modificato correttamente","Modifica piatto",JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(frame, "Seleziona il piatto da modificare","Modifica Piatto",JOptionPane.WARNING_MESSAGE);
@@ -126,10 +131,14 @@ public class Chef extends JPanel{
 
             }
         });
+
+        /**
+         * Listener per tornare alla homepage
+         */
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(chefLogic.getMenu().size()!=changed.size()){
+                if(!(chefLogic.getMenu().equals(changed))){
                     //TODO Aggiornare l'array changed
                     int risposta= JOptionPane.showConfirmDialog(frame,"Non hai confermato le modifiche, intendi farlo?","Conferma modfiche",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                     if(risposta==JOptionPane.YES_OPTION){
@@ -160,16 +169,31 @@ public class Chef extends JPanel{
         }
         MenuList = new JList();
         MenuList.setModel(model);
+        scrollBar1.add(MenuList);
         ListPanel.add(MenuList);
     }
 
-
+    /**
+     * Metodo per aggiungere un piatto al modello
+     * @param piatto piatto da aggiungere
+     */
     public void Add(Piatto piatto){
         model.addElement(piatto);
     }
+
+    /**
+     * Metodo per modificare un piatto nel modello
+     * @param index indice del piatto da modificare
+     * @param piatto_nuovo piatto modificato
+     */
     public void Edit(int index, Piatto piatto_nuovo){
         model.set(index,piatto_nuovo);
     }
+
+    /**
+     * Metodo per eliminare un piatto dal modello
+     * @param piatto piatto da eliminare
+     */
     public void Delete(Piatto piatto){
         model.removeElement(piatto);
     }

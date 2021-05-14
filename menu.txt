@@ -9,3 +9,7 @@ Calamari,8.0
 Fagioli,3.5
 Caprese,6.0
 Orata al cartoccio,15.0
+Polpette al sugo,6.0
+Bruschette,3.0
+Patatine fritte,4.0
+Insalata,5.0
