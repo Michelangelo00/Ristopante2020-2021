@@ -106,8 +106,8 @@ public class Cameriere extends JPanel{
                 if(ordine != null && ordine.getTavoloID() != 0){
                     cameriereL.FinalizzaOrdine(ordine); //invio l'ordine al cuoco
                     dlmOrdine.clear(); //svuoto la GUI
-                    ordine.SvuotaOrdine(); // svuoto l'ordine
-                    ordine.setTavoloID(0); //resetto il nuemro del tavolo
+                    //ordine.SvuotaOrdine(); // svuoto l'ordine
+                    //ordine.setTavoloID(0); //resetto il nuemro del tavolo
                     tavoloLabel.setText("Tavolo N."); //resetto la grafica del numero tavolo
                     System.out.println("Ordine: " + ordine + " finalizzato");
                 }
