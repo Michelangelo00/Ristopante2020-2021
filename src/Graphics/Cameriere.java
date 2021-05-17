@@ -121,12 +121,20 @@ public class Cameriere extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ordine != null && ordine.getTavoloID() != 0){
-                    Piatto piatto = ordineList.getSelectedValue();
-                    cameriereL.RimuoviPiatto(ordine,piatto);
-                    System.out.println("Rimosso piatto: " + piatto + " all'ordine: " + ordine);
+                    Piatto piattoQ = ordineList.getSelectedValue();
 
-                    //GPX
-                    dlmOrdine.removeElement(piatto);
+                    if(piattoQ.getQuantita() > 1){
+                        piattoQ.setQuantita(piattoQ.getQuantita() - 1);
+                        System.out.println("rimosso 1 unita del piatto");
+                    }
+                    else{
+                        cameriereL.RimuoviPiatto(ordine,piattoQ);
+                        System.out.println("Rimosso piatto: " + piattoQ + " all'ordine: " + ordine);
+
+                        //GPX
+                        dlmOrdine.removeElement(piattoQ);
+                    }
+
                 }
             }
         });
