@@ -65,21 +65,13 @@ public class Cameriere extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ordine != null && ordine.getTavoloID() != 0){
-                    Piatto piattoQ = menuList.getSelectedValue();
+                    Piatto piattoQ = new Piatto(menuList.getSelectedValue());
 
-                    if(ordine.getPiatti().contains(piattoQ)){
-                        piattoQ.setQuantita(piattoQ.getQuantita() + 1);
-                        System.out.println("questo piatto esisteva gia, ne ho aggiunto un altro");
-                    }
-                    else{
-                        cameriereL.AggiungiPiatto(ordine,piattoQ);
-                        System.out.println("Aggiunto piatto: " + piattoQ + " all'ordine: " + ordine);
+                    cameriereL.AggiungiPiatto(ordine,piattoQ);
+                    System.out.println("Aggiunto piatto: " + piattoQ + " all'ordine: " + ordine);
 
-                        //GPX
-                        dlmOrdine.addElement(piattoQ);
-                    }
-
-
+                    //GPX
+                    dlmOrdine.addElement(piattoQ);
                 }
             }
         });
@@ -123,18 +115,11 @@ public class Cameriere extends JPanel{
                 if(ordine != null && ordine.getTavoloID() != 0){
                     Piatto piattoQ = ordineList.getSelectedValue();
 
-                    if(piattoQ.getQuantita() > 1){
-                        piattoQ.setQuantita(piattoQ.getQuantita() - 1);
-                        System.out.println("rimosso 1 unita del piatto");
-                    }
-                    else{
-                        cameriereL.RimuoviPiatto(ordine,piattoQ);
-                        System.out.println("Rimosso piatto: " + piattoQ + " all'ordine: " + ordine);
+                    cameriereL.RimuoviPiatto(ordine,piattoQ);
+                    System.out.println("Rimosso piatto: " + piattoQ + " all'ordine: " + ordine);
 
-                        //GPX
-                        dlmOrdine.removeElement(piattoQ);
-                    }
-
+                    //GPX
+                    dlmOrdine.removeElement(piattoQ);
                 }
             }
         });
@@ -152,6 +137,7 @@ public class Cameriere extends JPanel{
                 Piatto piattoQ = ordineList.getSelectedValue();
                 int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
                 piattoQ.setQuantita(nuovaQuantita);
+                CamerierePanel.repaint();
             }
         });
     }

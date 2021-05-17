@@ -10,6 +10,13 @@ public class Piatto {
     private int quantita;
     private Type tipologia;
 
+    public Piatto(Piatto piattoParam) {
+        this.nome = piattoParam.getNome();
+        this.prezzo = piattoParam.getPrezzo();
+        this.quantita = 1;
+        this.tipologia= piattoParam.getTipologia();
+    }
+
 
     public enum Type{
         SELEZIONA,
@@ -43,6 +50,7 @@ public class Piatto {
         this.prezzo = prezzo;
         this.quantita = quantita;
     }
+
 
     @Override
     public String toString(){
