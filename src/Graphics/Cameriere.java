@@ -64,7 +64,7 @@ public class Cameriere extends JPanel{
         aggiungiPiattoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(ordine != null && ordine.getTavoloID() != 0){
+                if(ordine != null && ordine.getStato() == 0){
                     Piatto piattoQ = new Piatto(menuList.getSelectedValue());
 
                     if(ordine.contienePiatto(piattoQ)){
@@ -141,8 +141,14 @@ public class Cameriere extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 Piatto piattoQ = ordineList.getSelectedValue();
                 int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
-                piattoQ.setQuantita(nuovaQuantita);
-                CamerierePanel.repaint();
+
+                if(nuovaQuantita > 0 && nuovaQuantita < 100){
+                    piattoQ.setQuantita(nuovaQuantita);
+                    CamerierePanel.repaint();
+                }
+                else{
+                    System.out.println("mi dispiace ci hai sgarato");
+                }
             }
         });
     }
