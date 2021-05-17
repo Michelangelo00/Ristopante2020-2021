@@ -54,7 +54,13 @@ public class Piatto {
 
     @Override
     public String toString(){
-        return this.quantita + " " + this.getNome() + " " + this.getPrezzo() + "€ ";
+        if(this.quantita == 1){
+            return this.getNome() + " " + this.getPrezzo() + "€ ";
+        }
+        else{
+            return this.quantita + " " + this.getNome() + " " + this.getPrezzo() + "€ ";
+        }
+
     }
 
     public String getNome() {
