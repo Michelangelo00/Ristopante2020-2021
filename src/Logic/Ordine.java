@@ -45,6 +45,17 @@ public class Ordine {
         return null;
     }
 
+    public boolean contienePiatto(Piatto piattoDaCercare){
+        String nomePiatto = piattoDaCercare.getNome();
+
+        for(Piatto piatto : this.piatti){
+            if(piatto.getNome().equals(nomePiatto)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * rimuove un piatto dall'ordine
      * @param piatto piatto da rimuovere

@@ -67,11 +67,16 @@ public class Cameriere extends JPanel{
                 if(ordine != null && ordine.getTavoloID() != 0){
                     Piatto piattoQ = new Piatto(menuList.getSelectedValue());
 
-                    cameriereL.AggiungiPiatto(ordine,piattoQ);
-                    System.out.println("Aggiunto piatto: " + piattoQ + " all'ordine: " + ordine);
+                    if(ordine.contienePiatto(piattoQ)){
+                        System.out.println("questo piatto e' gia' stato inserito");
+                    }
+                    else{
+                        cameriereL.AggiungiPiatto(ordine,piattoQ);
+                        System.out.println("Aggiunto piatto: " + piattoQ + " all'ordine: " + ordine);
 
-                    //GPX
-                    dlmOrdine.addElement(piattoQ);
+                        //GPX
+                        dlmOrdine.addElement(piattoQ);
+                    }
                 }
             }
         });
@@ -99,7 +104,7 @@ public class Cameriere extends JPanel{
                     cameriereL.FinalizzaOrdine(ordine); //invio l'ordine al cuoco
                     dlmOrdine.clear(); //svuoto la GUI
                     //ordine.SvuotaOrdine(); // svuoto l'ordine
-                    //ordine.setTavoloID(0); //resetto il nuemro del tavolo
+                    //ordine.setTavoloID(0); //resetto il numero del tavolo
                     tavoloLabel.setText("Tavolo N."); //resetto la grafica del numero tavolo
                     System.out.println("Ordine: " + ordine + " finalizzato");
                 }
