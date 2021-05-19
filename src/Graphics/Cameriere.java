@@ -42,7 +42,7 @@ public class Cameriere extends JPanel{
 
 
         /**
-         * PORCODIO
+         * popola l'array list menu
          */
         ArrayList<Piatto> menu = cameriereL.getMenu();
         System.out.println(menu);
@@ -128,6 +128,9 @@ public class Cameriere extends JPanel{
                 }
             }
         });
+        /**
+         * torna al menu principale
+         */
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,6 +139,9 @@ public class Cameriere extends JPanel{
                 HomePage homePage= new HomePage();
             }
         });
+        /**
+         * modifica la quantita di un piatto dell'ordinazione
+         */
         modificaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -7,9 +7,13 @@ public class Piatto {
 
     private String nome; //nome del piatto
     private double prezzo; //prezzo del piatto
-    private int quantita;
-    private Type tipologia;
+    private int quantita; //quantita del piatto
+    private Type tipologia; // tipo del piatto
 
+    /**
+     * costruisce un piatto dato un piatto
+     * @param piattoParam
+     */
     public Piatto(Piatto piattoParam) {
         this.nome = piattoParam.getNome();
         this.prezzo = piattoParam.getPrezzo();
@@ -18,6 +22,9 @@ public class Piatto {
     }
 
 
+    /**
+     * enum dei tipi di piatto
+     */
     public enum Type{
         SELEZIONA,
         ANTIPASTI,
@@ -52,6 +59,10 @@ public class Piatto {
     }
 
 
+    /**
+     * override del toString per visualizzazione nella GUI
+     * @return
+     */
     @Override
     public String toString(){
         if(this.quantita == 1){

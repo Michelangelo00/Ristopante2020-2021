@@ -45,6 +45,11 @@ public class Ordine {
         return null;
     }
 
+    /**
+     * controlla se un piatto e' contenuto
+     * @param piattoDaCercare
+     * @return true se trova il piatto senno false
+     */
     public boolean contienePiatto(Piatto piattoDaCercare){
         String nomePiatto = piattoDaCercare.getNome();
 
@@ -72,6 +77,9 @@ public class Ordine {
         }
     }
 
+    /**
+     * svuota un ordine
+     */
     public void SvuotaOrdine(){
         this.piatti.clear();
     }

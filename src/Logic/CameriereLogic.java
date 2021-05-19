@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 public class CameriereLogic {
 
-    private static Data data = new Data();
+    private static Data data = new Data(); //creo un istanza di data
 
+    /**
+     * costruttore di cameriere, chiama Load per caricare il menu
+     */
     public CameriereLogic(){
         Load();
     }
@@ -67,10 +70,17 @@ public class CameriereLogic {
         Data.loadOrdini(ordine);
     }
 
+    /**
+     * getter del menu
+     * @return menu
+     */
     public ArrayList<Piatto> getMenu(){
         return data.getMenu();
     }
 
+    /**
+     * esegue il caricamento del menu
+     */
     public void Load(){
         data.loadMenu();
     }
