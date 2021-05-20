@@ -1,45 +1,54 @@
 package Graphics;
 
-import Logic.Data;
+import Logic.CuocoLogic;
 import Logic.Ordine;
-import Logic.Piatto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Cuoco extends JPanel{
     private JPanel CuocoPanel;
-    private JList ListaOrdini;
+    private JList ListaOrdiniTavolo;
     private JList ListaPiattiOrdine;
+    private JPanel PanelListaTavoli;
+    private JButton Evadi;
     private JFrame frame;
+    private CuocoLogic cuoco = new CuocoLogic();
     JList<Ordine> ordini = new JList<>();
-    DefaultListModel<Ordine> model = new DefaultListModel<>();
+    DefaultListModel<Integer> model = new DefaultListModel<>();
 
     public Cuoco(){
 
         frame= new JFrame("Cuoco");
         frame.setSize(new Dimension(500,500));
         frame.setContentPane(CuocoPanel);
+
+        loadTavoli();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        //DefaultListModel<Piatto> piatto = new DefaultListModel();
-        DefaultListModel m = new DefaultListModel();
-        ListaOrdini.addMouseListener(new MouseAdapter() {
+        Evadi.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-
-                String data = ListaOrdini.getSelectedValue().toString();
-
-                m.addElement(data);
-
-                ListaPiattiOrdine.setModel(m);
-
+            public void actionPerformed(ActionEvent e) {
+                model.removeElement(ListaOrdiniTavolo.getSelectedValue());
             }
         });
     }
+
+    public void loadTavoli(){
+        for(Ordine o: cuoco.GetOrdiniCuoco()){
+            if(o.getStato() == 1){
+                model.addElement(o.getTavoloID());
+            }
+        }
+        ListaOrdiniTavolo = new JList();
+        ListaOrdiniTavolo.setModel(model);
+        PanelListaTavoli.add(ListaOrdiniTavolo);
+    }
+
+
 
 }

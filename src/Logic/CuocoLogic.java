@@ -6,7 +6,6 @@ public class CuocoLogic {
 
 
     private Data data = new Data();
-    private ArrayList<Ordine> ordini = data.getOrdini();
 
 
     public CuocoLogic(){
@@ -15,10 +14,9 @@ public class CuocoLogic {
 
     }
 
-    public void RimuoviOrdine(){
 
-
-
+    public ArrayList<Ordine> GetOrdiniCuoco(){
+        return data.getOrdini();
     }
 
 }
