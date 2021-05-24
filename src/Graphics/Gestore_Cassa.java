@@ -62,9 +62,7 @@ public class Gestore_Cassa extends JPanel{
     public void LoadPiattiOrdine(int NTavolo){
         for(Ordine o: gestore_cassaLogic.GetOrdini()){
             if(o.getTavoloID()==NTavolo){
-                for(Piatto p: o.getPiatti()){
-                    PiattiOrdineModel.addElement(p);
-                }
+                PiattiOrdineModel.addAll(o.getPiatti());
             }
         }
         PiattiList = new JList();

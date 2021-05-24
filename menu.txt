@@ -8,10 +8,11 @@ Tiramisù,3.5,DOLCI
 Fettuccine ai funghi,7.0,PRIMI
 Cicoria  ripassata,4.5,SECONDI
 Lasagna,8.5,PRIMI
-Fanta,2.5,BEVANDE
+Fanta,2.0,BEVANDE
 Acqua frizzante,2.0,BEVANDE
 Supllì,2.0,ANTIPASTI
 Fiori di zucca,3.0,ANTIPASTI
 Tagliere di Terra,8.5,ANTIPASTI
 Tagliere di Mare,9.0,ANTIPASTI
 Orata al cartoccio,16.0,SECONDI
+Panna Cotta,3.5,DOLCI

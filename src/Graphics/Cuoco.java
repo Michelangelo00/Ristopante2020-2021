@@ -8,17 +8,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 public class Cuoco extends JPanel{
     private JPanel CuocoPanel;
     private JList ListaOrdiniTavolo;
     private JPanel PanelListaTavoli;
     private JButton Evadi;
-    private JPanel PanelCheckBox;
-    private JCheckBox CheckPiatti;
     private JButton mostraPiatti;
-    private JCheckBox checkBox1;
+    private JPanel CheckPanel;
+    private JCheckBox cb[];
+    private JCheckBox cb2[]= new JCheckBox[10];
     private JFrame frame;
     private CuocoLogic cuoco = new CuocoLogic();
     JList<Ordine> ordini = new JList<>();
@@ -27,16 +27,17 @@ public class Cuoco extends JPanel{
 
 
 
-    public Cuoco(){
-
-        frame= new JFrame("Cuoco");
-        frame.setSize(new Dimension(500,500));
+    public Cuoco() {
+        frame = new JFrame("Cuoco");
+        frame.setBounds(400, 300, 1000, 600);
         frame.setContentPane(CuocoPanel);
 
         loadTavoli();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+
 
         Evadi.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +50,12 @@ public class Cuoco extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadPiatti( (Integer) ListaOrdiniTavolo.getSelectedValue());
+
+                for(int j=0;j<cb.length;j++){
+                    cb[j].setVisible(true);
+                }
+
+
             }
         });
     }
@@ -64,6 +71,8 @@ public class Cuoco extends JPanel{
         PanelListaTavoli.add(ListaOrdiniTavolo);
     }
 
+
+
     public void loadPiatti(int NTavolo){
         for(Ordine o: cuoco.GetOrdiniCuoco()){
             if(o.getTavoloID() == NTavolo){
@@ -72,11 +81,16 @@ public class Cuoco extends JPanel{
                 }
             }
         }
-        CheckPiatti = new JCheckBox();
-        CheckPiatti.add(modelPiatto);
-        PanelCheckBox.add(CheckPiatti);
+
+        cb= new JCheckBox[modelPiatto.getSize()];
+        for(int i=0; i<modelPiatto.getSize();i++){
+            cb[i]= new JCheckBox(modelPiatto.get(i).getNome());
+            cb[i].setVisible(false);
+        }
+        for(int i=0; i<modelPiatto.getSize();i++){
+            CheckPanel.add(cb[i]);
+        }
+
     }
-
-
 
 }
