@@ -17,14 +17,6 @@
           <text value="Lista Ordini"/>
         </properties>
       </component>
-      <component id="5974e" class="javax.swing.JList" binding="ListaPiattiOrdine">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
       <grid id="21f97" binding="PanelListaTavoli" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -34,7 +26,9 @@
         <children>
           <component id="69496" class="javax.swing.JList" binding="ListaOrdiniTavolo">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <model/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -46,6 +40,21 @@
           <text value="Evadi"/>
         </properties>
       </component>
+      <grid id="83a53" binding="PanelCheckBox" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="10e9b" class="javax.swing.JCheckBox" binding="CheckPiatti">
+            <constraints border-constraint="North"/>
+            <properties>
+              <text value="CheckBox"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

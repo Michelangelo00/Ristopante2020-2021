@@ -40,7 +40,7 @@ public class Data {
             }
     }
 
-    public  ArrayList<Piatto> getMenu() {
+    public ArrayList<Piatto> getMenu() {
         return  menu;
     }
 

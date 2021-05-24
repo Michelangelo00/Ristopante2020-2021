@@ -6,6 +6,8 @@ public class CuocoLogic {
 
 
     private Data data = new Data();
+    Ordine tavolo;
+    private Ordine piatti = new Ordine(tavolo.getTavoloID());
 
 
     public CuocoLogic(){
@@ -18,5 +20,9 @@ public class CuocoLogic {
     public ArrayList<Ordine> GetOrdiniCuoco(){
         return data.getOrdini();
     }
+
+    public ArrayList<Piatto> GetPiattiOrdine(){ return piatti.getPiatti();}
+
+
 
 }
