@@ -16,3 +16,5 @@ Tagliere di Terra,8.5,ANTIPASTI
 Tagliere di Mare,9.0,ANTIPASTI
 Orata al cartoccio,16.0,SECONDI
 Panna Cotta,3.5,DOLCI
+Bruschette,5.0,ANTIPASTI
+Sprite,2.5,BEVANDE
