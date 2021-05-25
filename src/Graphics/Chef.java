@@ -70,7 +70,9 @@ public class Chef extends JPanel{
                         JOptionPane.showMessageDialog(frame, "Inserisci il prezzo del piatto!");
                     }else if (ComboBoxSelection.equals("SELEZIONA")) {
                         JOptionPane.showMessageDialog(frame, "Inserisci la tipologia del piatto!");
-
+                            JOptionPane.showMessageDialog(frame, "Il prezzo del piatto non può essere 0 o negativo!");
+                    }else if(Double.parseDouble(PiattoPrezzo.getText())<=0) {
+                        JOptionPane.showMessageDialog(frame, "Il prezzo del piatto non può essere 0 o negativo!");
                     }else{
                         String nome= PiattoNome.getText();
                         Double prezzo= Double.parseDouble(PiattoPrezzo.getText());

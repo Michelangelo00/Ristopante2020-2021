@@ -16,10 +16,10 @@ public class Gestore_Cassa extends JPanel{
     private JPanel TavoliPanel;
     private JButton checkOutTavoloSelezionatoButton;
     private JButton pagaButton;
-    private JTextField TotField;
     private JButton indietroButton;
     private JPanel PiattiListPanel;
     private JList PiattiList;
+    private JLabel Tot;
     private JFrame frame;
     private final DefaultListModel<Integer> OrdiniModel= new DefaultListModel<>();
     private final DefaultListModel<Piatto> PiattiOrdineModel= new DefaultListModel<>();
@@ -27,7 +27,7 @@ public class Gestore_Cassa extends JPanel{
 
     public Gestore_Cassa(){
         frame= new JFrame("GestoreCassa");
-        frame.setSize(new Dimension(500,500));
+        frame.setBounds(400, 300, 1000, 600);
         frame.setContentPane(GestoreCassaPanel);
         LoadOrdiniList();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +42,17 @@ public class Gestore_Cassa extends JPanel{
         checkOutTavoloSelezionatoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoadPiattiOrdine((Integer)TavoliList.getSelectedValue());
+                if(PiattiList.getModel().getSize()==0 ){
+                    LoadPiattiOrdine((Integer)TavoliList.getSelectedValue());
+                    PiattiList = new JList();
+                    PiattiList.setModel(PiattiOrdineModel);
+                    PiattiListPanel.add(PiattiList);
+                    PiattiList.setVisible(true);
+                    Tot.setText(String.valueOf(CalcolaTot()));
+                }else{
+                    JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
+                }
+
             }
         });
     }
@@ -65,8 +75,14 @@ public class Gestore_Cassa extends JPanel{
                 PiattiOrdineModel.addAll(o.getPiatti());
             }
         }
-        PiattiList = new JList();
-        PiattiList.setModel(PiattiOrdineModel);
-        PiattiListPanel.add(PiattiList);
+        PiattiList.setVisible(false);
+    }
+
+    public double CalcolaTot(){
+        double tot=0;
+        for(int i=0; i<PiattiOrdineModel.getSize();i++){
+            tot+=PiattiOrdineModel.get(i).getPrezzo();
+        }
+        return tot;
     }
 }

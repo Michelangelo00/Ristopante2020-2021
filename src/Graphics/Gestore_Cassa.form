@@ -37,13 +37,16 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="a1e45" class="javax.swing.JTextField" binding="TotField">
-            <constraints border-constraint="South"/>
-            <properties/>
-          </component>
           <component id="63eff" class="javax.swing.JList" binding="PiattiList">
             <constraints border-constraint="Center"/>
             <properties/>
+          </component>
+          <component id="2776f" class="javax.swing.JLabel" binding="Tot">
+            <constraints border-constraint="South"/>
+            <properties>
+              <font size="16"/>
+              <text value="Label"/>
+            </properties>
           </component>
         </children>
       </grid>
