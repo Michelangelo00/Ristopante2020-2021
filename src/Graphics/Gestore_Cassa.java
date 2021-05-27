@@ -42,7 +42,7 @@ public class Gestore_Cassa extends JPanel{
         checkOutTavoloSelezionatoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(PiattiList.getModel().getSize()==0 ){
+                if(PiattiList.getModel() != null ){
                     LoadPiattiOrdine((Integer)TavoliList.getSelectedValue());
                     PiattiList = new JList();
                     PiattiList.setModel(PiattiOrdineModel);
