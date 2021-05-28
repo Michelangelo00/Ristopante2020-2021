@@ -32,7 +32,7 @@
           </component>
         </children>
       </grid>
-      <grid id="83a53" binding="PanelCheckBox" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="83a53" binding="CheckPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -45,7 +45,7 @@
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Evadi"/>
+          <text value="Evadi Ordine"/>
         </properties>
       </component>
       <component id="43771" class="javax.swing.JButton" binding="mostraPiatti">
@@ -54,6 +54,14 @@
         </constraints>
         <properties>
           <text value="Mostra"/>
+        </properties>
+      </component>
+      <component id="ec8f3" class="javax.swing.JButton" binding="EvadiPiatto">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Evadi Piatto"/>
         </properties>
       </component>
     </children>

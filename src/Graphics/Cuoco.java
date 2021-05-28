@@ -17,6 +17,7 @@ public class Cuoco extends JPanel{
     private JButton Evadi;
     private JButton mostraPiatti;
     private JPanel CheckPanel;
+    private JButton EvadiPiatto;
     private JCheckBox cb[];
     private JCheckBox cb2[]= new JCheckBox[10];
     private JFrame frame;
@@ -51,11 +52,20 @@ public class Cuoco extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 loadPiatti( (Integer) ListaOrdiniTavolo.getSelectedValue());
 
-                for(int j=0;j<cb.length;j++){
-                    cb[j].setVisible(true);
+            }
+        });
+
+        EvadiPiatto.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component checkBox[] = CheckPanel.getComponents();
+                for(Component c : checkBox){
+                    if(((JCheckBox)c).isSelected()){
+                        CheckPanel.remove(c);
+                    }
                 }
-
-
+                CheckPanel.revalidate();
+                CheckPanel.repaint();
             }
         });
     }
@@ -89,6 +99,10 @@ public class Cuoco extends JPanel{
         }
         for(int i=0; i<modelPiatto.getSize();i++){
             CheckPanel.add(cb[i]);
+        }
+
+        for(int j=0;j<cb.length;j++){
+            cb[j].setVisible(true);
         }
 
     }
