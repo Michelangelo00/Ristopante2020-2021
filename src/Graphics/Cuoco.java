@@ -43,7 +43,13 @@ public class Cuoco extends JPanel{
         Evadi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for(Ordine or: cuoco.GetOrdiniCuoco()){
+                    if ((Integer)ListaOrdiniTavolo.getSelectedValue() == or.getTavoloID()) {
+                        or.setStato(2);
+                    }
+                }
                 model.removeElement(ListaOrdiniTavolo.getSelectedValue());
+
             }
         });
 
