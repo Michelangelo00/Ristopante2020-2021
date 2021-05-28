@@ -51,6 +51,9 @@ public class Cuoco extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadPiatti( (Integer) ListaOrdiniTavolo.getSelectedValue());
+                for(int j=0;j<cb.length;j++){
+                    cb[j].setVisible(true);
+                }
 
             }
         });
@@ -100,11 +103,6 @@ public class Cuoco extends JPanel{
         for(int i=0; i<modelPiatto.getSize();i++){
             CheckPanel.add(cb[i]);
         }
-
-        for(int j=0;j<cb.length;j++){
-            cb[j].setVisible(true);
-        }
-
     }
 
 }
