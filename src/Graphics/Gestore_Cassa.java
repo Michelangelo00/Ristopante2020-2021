@@ -120,7 +120,7 @@ public class Gestore_Cassa extends JPanel{
 
                 int productPosition = 0;
                 int discountPosition = prodLength + 5;
-                int pricePosition = discountPosition + 10;
+                int pricePosition = 10;
                 int qtyPosition = pricePosition + PrezzoLunghezza + 4;
                 int amtPosition = qtyPosition + QuantitàLunghezza;
 
@@ -143,12 +143,13 @@ public class Gestore_Cassa extends JPanel{
 
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
-                    g2d.drawString(" Piatto                 Prezzo   ", 10, y);
+                    g2d.drawString("   Piatto                 Prezzo   ", 10, y);
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += headerRectHeight;
                     for(int i=0; i<PiattiOrdineModel.getSize();i++){
-                        g2d.drawString(" " + PiattiOrdineModel.get(i).getNome() + " " + PiattiOrdineModel.get(i).getPrezzo() + "", 5, y);
+                        g2d.drawString(" " + PiattiOrdineModel.get(i).getNome() + "                     ",10, y);
+                        g2d.drawString("     "+PiattiOrdineModel.get(i).getPrezzo()+"€",130,y);
                         sum+=PiattiOrdineModel.get(i).getPrezzo();
                         y += yShift;
                     }
@@ -158,9 +159,13 @@ public class Gestore_Cassa extends JPanel{
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
-                    g2d.drawString("          Free Home Delivery         ", 10, y);
+                    g2d.drawString("           Codice Lotteria         ", 10, y);
                     y += yShift;
                     g2d.drawString("             03111111111             ", 10, y);
+                    y += yShift;
+                    g2d.drawString("*************************************", 10, y);
+                    y += yShift;
+                    g2d.drawString("    Contatti: caccioddio@gmail.com   ", 10, y);
                     y += yShift;
                     g2d.drawString("*************************************", 10, y);
                     y += yShift;

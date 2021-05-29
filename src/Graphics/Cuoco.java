@@ -18,6 +18,7 @@ public class Cuoco extends JPanel{
     private JButton mostraPiatti;
     private JPanel CheckPanel;
     private JButton EvadiPiatto;
+    private JButton indietroButton;
     private JCheckBox cb[];
     private JCheckBox cb2[]= new JCheckBox[10];
     private JFrame frame;
@@ -74,6 +75,13 @@ public class Cuoco extends JPanel{
                 }
                 CheckPanel.revalidate();
                 CheckPanel.repaint();
+            }
+        });
+        indietroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                HomePage homePage= new HomePage();
             }
         });
     }

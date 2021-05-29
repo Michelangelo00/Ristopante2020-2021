@@ -51,7 +51,6 @@ public class Chef extends JPanel{
         frame.setBounds(400, 300, 1000, 600);
         frame.setContentPane(ChefPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
         frame.setVisible(true);
 
 

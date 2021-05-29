@@ -18,7 +18,7 @@
       </grid>
       <component id="13ec5" class="javax.swing.JTextArea" binding="PiattoNome">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
@@ -26,7 +26,7 @@
       </component>
       <component id="f748b" class="javax.swing.JTextArea" binding="PiattoPrezzo">
         <constraints>
-          <grid row="5" column="2" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
@@ -34,7 +34,7 @@
       </component>
       <component id="856e7" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="16"/>
@@ -43,7 +43,7 @@
       </component>
       <component id="2b3c7" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="16"/>
@@ -108,7 +108,9 @@
         <children>
           <component id="67247" class="javax.swing.JList" binding="SecondiList">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <selectionMode value="0"/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -121,7 +123,9 @@
         <children>
           <component id="dd18f" class="javax.swing.JList" binding="DolciList">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <selectionMode value="0"/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -184,7 +188,9 @@
         <children>
           <component id="dce7d" class="javax.swing.JList" binding="AntipastiList">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <selectionMode value="0"/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -197,7 +203,9 @@
         <children>
           <component id="c0e3f" class="javax.swing.JList" binding="BevandeList">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <selectionMode value="0"/>
+            </properties>
           </component>
         </children>
       </grid>
