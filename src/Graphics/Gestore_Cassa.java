@@ -63,7 +63,7 @@ public class Gestore_Cassa extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrinterJob pj = PrinterJob.getPrinterJob();
-                pj.setPrintable(new BillPrintable(), CreaPageFormat(pj));
+                pj.setPrintable(new BillPrintable(), gestore_cassaLogic.CreaPageFormat(pj));
                 try{
                     pj.print();
                 }
@@ -103,27 +103,6 @@ public class Gestore_Cassa extends JPanel{
         return tot;
     }
 
-    public PageFormat CreaPageFormat(PrinterJob pj){
-        PageFormat pf = new PageFormat();
-        Paper paper = pf.getPaper();
-        double centroAltezza = 8.0;
-        double sopraAltezza = 2.0;
-        double bassoAltezza= 2.0;
-        double larghezza = (8*0.393600787)*72d;
-        double altezza= ((centroAltezza+sopraAltezza+bassoAltezza)*0.393600787)*72d;
-        paper.setSize(larghezza,altezza);
-        paper.setImageableArea(
-                0,
-                10,
-                larghezza,
-                altezza-((1*0.393600787)*72d)
-        );
-        pf.setOrientation(PageFormat.PORTRAIT);
-        pf.setPaper(paper);
-        return pf;
-    }
-
-
     public class BillPrintable implements Printable {
         @Override
         public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -148,37 +127,34 @@ public class Gestore_Cassa extends JPanel{
                 try {
                     int y = 20;
                     int yShift = 10;
-                    int headerRectHeight = 15;
+                    int headerRectHeight = 10;
                     int headerRectHeighta = 40;
 
-                    String pn1a = PiattiOrdineModel.get(0).getNome();
-                    String pn2a = PiattiOrdineModel.get(1).getNome();
 
-                    double pp1a = PiattiOrdineModel.get(0).getPrezzo();
-                    double pp2a = PiattiOrdineModel.get(1).getPrezzo();
-                    double sum = pp1a + pp2a;
+                    double sum = 0;
 
                     g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
                     g2d.drawString("-------------------------------------", 12, y);
                     y += yShift;
-                    g2d.drawString("      Restaurant Bill Receipt        ", 12, y);
+                    g2d.drawString("        Ricevuta Ristopante        ", 12, y);
                     y += yShift;
                     g2d.drawString("-------------------------------------", 12, y);
                     y += headerRectHeight;
 
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
-                    g2d.drawString(" Food Name                 T.Price   ", 10, y);
+                    g2d.drawString(" Piatto                 Prezzo   ", 10, y);
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += headerRectHeight;
-                    g2d.drawString(" " + pn1a + "                  " + pp1a + "  ", 10, y);
-                    y += yShift;
-                    g2d.drawString(" " + pn2a + "                  " + pp2a + "  ", 10, y);
-                    y += yShift;
+                    for(int i=0; i<PiattiOrdineModel.getSize();i++){
+                        g2d.drawString(" " + PiattiOrdineModel.get(i).getNome() + " " + PiattiOrdineModel.get(i).getPrezzo() + "", 5, y);
+                        sum+=PiattiOrdineModel.get(i).getPrezzo();
+                        y += yShift;
+                    }
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
-                    g2d.drawString(" Total amount: " + sum + "               ", 10, y);
+                    g2d.drawString(" Totale: " + sum + "               ", 10, y);
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
@@ -188,7 +164,7 @@ public class Gestore_Cassa extends JPanel{
                     y += yShift;
                     g2d.drawString("*************************************", 10, y);
                     y += yShift;
-                    g2d.drawString("    THANKS TO VISIT OUR RESTUARANT   ", 10, y);
+                    g2d.drawString("          GRAZIE E ARRIVEDERCI   ", 10, y);
                     y += yShift;
                     g2d.drawString("*************************************", 10, y);
                     y += yShift;

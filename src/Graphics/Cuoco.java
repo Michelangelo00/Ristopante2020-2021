@@ -49,7 +49,6 @@ public class Cuoco extends JPanel{
                     }
                 }
                 model.removeElement(ListaOrdiniTavolo.getSelectedValue());
-
             }
         });
 

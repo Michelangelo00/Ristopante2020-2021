@@ -69,6 +69,8 @@ public class Data {
     public  void RemovePiatto(Piatto piatto){
         menu.remove(piatto);
     }
+
+
 }
 
 
