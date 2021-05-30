@@ -64,11 +64,12 @@ public class Gestore_Cassa extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 PrinterJob pj = PrinterJob.getPrinterJob();
                 pj.setPrintable(new BillPrintable(), gestore_cassaLogic.CreaPageFormat(pj));
-                try{
-                    pj.print();
-                }
-                catch (PrinterException ex){
-                    ex.printStackTrace();
+                if(pj.printDialog()) {
+                    try {
+                        pj.print();
+                    } catch (PrinterException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
