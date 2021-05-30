@@ -68,7 +68,7 @@ public class Cameriere extends JPanel{
                     Piatto piattoQ = new Piatto(menuList.getSelectedValue());
 
                     if(ordine.contienePiatto(piattoQ)){
-                        System.out.println("questo piatto e' gia' stato inserito");
+                        JOptionPane.showMessageDialog(frame, "Questo piatto é già stato inserito","Piatto Inserito",JOptionPane.WARNING_MESSAGE);
                     }
                     else{
                         cameriereL.AggiungiPiatto(ordine,piattoQ);
@@ -77,6 +77,9 @@ public class Cameriere extends JPanel{
                         //GPX
                         dlmOrdine.addElement(piattoQ);
                     }
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Impossibile aggiungere un piatto ad un ordine inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -87,10 +90,18 @@ public class Cameriere extends JPanel{
         creaOrdineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int numeroTavolo = Integer.parseInt(JOptionPane.showInputDialog(CamerierePanel,"Inserire numero del tavolo"));
-                ordine = cameriereL.CreaOrdine(numeroTavolo);
-                tavoloLabel.setText("Tavolo N." + numeroTavolo); //setto grafica del numero del tavolo
-                System.out.println("Creato ordine: " + ordine);
+
+
+                String stringaTavolo = JOptionPane.showInputDialog(CamerierePanel,"Inserire numero del tavolo");
+                if(!stringaTavolo.isEmpty()){
+                    int numeroTavolo = Integer.parseInt(stringaTavolo);
+                    ordine = cameriereL.CreaOrdine(numeroTavolo);
+                    tavoloLabel.setText("Tavolo N." + numeroTavolo); //setto grafica del numero del tavolo
+                    System.out.println("Creato ordine: " + ordine);
+                }
+                else{
+                    System.out.println("Famm bocc");
+                }
             }
         });
 
@@ -157,7 +168,17 @@ public class Cameriere extends JPanel{
                 }
             }
         });
+
+
     }
 
+    public boolean isParsable(String stringToConvert){
 
+        for(int i = 0; i < stringToConvert.length(); i++){
+            //if(stringToConvert.charAt(i).)
+        }
+
+
+        return true;
+    }
 }

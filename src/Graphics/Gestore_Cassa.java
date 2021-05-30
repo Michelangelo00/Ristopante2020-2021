@@ -166,7 +166,7 @@ public class Gestore_Cassa extends JPanel{
                     y += yShift;
                     g2d.drawString("*************************************", 10, y);
                     y += yShift;
-                    g2d.drawString("    Contatti: caccioddio@gmail.com   ", 10, y);
+                    g2d.drawString("    Contatti: ristorante@gmail.com   ", 10, y);
                     y += yShift;
                     g2d.drawString("*************************************", 10, y);
                     y += yShift;
