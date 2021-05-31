@@ -182,6 +182,7 @@ public class Chef extends JPanel{
            }
        });
 
+        //NON VOGLIO FARLO GENERICS
         BevandeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -192,6 +193,8 @@ public class Chef extends JPanel{
                 frame.repaint();
             }
         });
+
+       //NON VOGLIO FARLO GENERICS
         AntipastiList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -202,6 +205,8 @@ public class Chef extends JPanel{
                 frame.repaint();
             }
         });
+
+        //NON VOGLIO FARLO GENERICS
         PrimiList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -212,6 +217,8 @@ public class Chef extends JPanel{
                 frame.repaint();
             }
         });
+
+        //NON VOGLIO FARLO GENERICS
         SecondiList.addListSelectionListener(new ListSelectionListener() {
            @Override
            public void valueChanged(ListSelectionEvent e) {
@@ -222,6 +229,8 @@ public class Chef extends JPanel{
                    frame.repaint();
            }
        });
+
+        //NON VOGLIO FARLO GENERICS
         DolciList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -232,7 +241,6 @@ public class Chef extends JPanel{
                 frame.repaint();
             }
         });
-
 
     }
 
