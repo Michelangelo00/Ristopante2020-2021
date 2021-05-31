@@ -20,5 +20,14 @@ public class CuocoLogic {
         return data.getOrdini();
     }
 
+    public void EvadiTavolo(int Tavolo){
+        for(int i=0;i<data.getOrdini().size();i++){
+            if(data.getOrdini().get(i).getTavoloID()==Tavolo){
+                data.getOrdini().get(i).setStato(2);
+                break;
+            }
+        }
+    }
+
 
 }

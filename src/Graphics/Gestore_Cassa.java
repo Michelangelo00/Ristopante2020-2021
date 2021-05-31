@@ -78,7 +78,7 @@ public class Gestore_Cassa extends JPanel{
     public void LoadOrdiniList(){
         for(Ordine o: gestore_cassaLogic.GetOrdini()){
             System.out.println(o.getPiatti());
-            if(o.getStato()==1){
+            if(o.getStato()==2){
                 OrdiniModel.addElement(o.getTavoloID());
             }
         }
