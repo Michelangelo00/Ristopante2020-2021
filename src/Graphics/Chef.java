@@ -4,6 +4,8 @@ import Logic.ChefLogic;
 import Logic.Piatto;
 import static Logic.Piatto.Type.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -40,6 +42,7 @@ public class Chef extends JPanel{
     private final DefaultListModel<Piatto> DolciModel= new DefaultListModel<>();
     private final DefaultListModel<Piatto> AntiPastiModel= new DefaultListModel<>();
     private ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
+    private ActionListener listActionListener;
 
 
     public Chef() {
@@ -178,6 +181,58 @@ public class Chef extends JPanel{
                ConfermaClose();
            }
        });
+
+        BevandeList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                SecondiList.clearSelection();
+                AntipastiList.clearSelection();
+                PrimiList.clearSelection();
+                DolciList.clearSelection();
+                frame.repaint();
+            }
+        });
+        AntipastiList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                BevandeList.clearSelection();
+                SecondiList.clearSelection();
+                PrimiList.clearSelection();
+                DolciList.clearSelection();
+                frame.repaint();
+            }
+        });
+        PrimiList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                BevandeList.clearSelection();
+                AntipastiList.clearSelection();
+                SecondiList.clearSelection();
+                DolciList.clearSelection();
+                frame.repaint();
+            }
+        });
+        SecondiList.addListSelectionListener(new ListSelectionListener() {
+           @Override
+           public void valueChanged(ListSelectionEvent e) {
+                   BevandeList.clearSelection();
+                   AntipastiList.clearSelection();
+                   PrimiList.clearSelection();
+                   DolciList.clearSelection();
+                   frame.repaint();
+           }
+       });
+        DolciList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                BevandeList.clearSelection();
+                AntipastiList.clearSelection();
+                PrimiList.clearSelection();
+                SecondiList.clearSelection();
+                frame.repaint();
+            }
+        });
+
 
     }
 
