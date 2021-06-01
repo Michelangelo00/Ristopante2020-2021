@@ -1,7 +1,11 @@
 package Logic;
 
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 
+/**
+ * Classe che implementa la figura del cuoco (evadi tavolo)
+ */
 public class CuocoLogic {
 
 
@@ -12,14 +16,17 @@ public class CuocoLogic {
         return data.getOrdini();
     }
 
-    public void EvadiTavolo(int Tavolo){
+    /**
+     * Metodo per evadere un tavolo dopo che tutti i suoi piatti sono stati serviti
+     * @param Tavolo tavolo da evadere
+     */
+    public void EvadiTavolo(String Tavolo){
         for(int i=0;i<data.getOrdini().size();i++){
-            if(data.getOrdini().get(i).getTavoloID()==Tavolo){
+            if(data.getOrdini().get(i).getTavoloID()==Integer.valueOf(Tavolo)){
                 data.getOrdini().get(i).setStato(2);
                 break;
             }
         }
     }
-
 
 }

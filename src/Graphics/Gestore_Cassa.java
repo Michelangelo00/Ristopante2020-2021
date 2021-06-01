@@ -67,6 +67,9 @@ public class Gestore_Cassa extends JPanel{
                 if(pj.printDialog()) {
                     try {
                         pj.print();
+                        OrdiniModel.removeElement(TavoliList.getSelectedValue());
+                        PiattiOrdineModel.removeAllElements();
+                        Tot.setText("");
                     } catch (PrinterException ex) {
                         ex.printStackTrace();
                     }

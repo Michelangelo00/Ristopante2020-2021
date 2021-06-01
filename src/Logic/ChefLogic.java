@@ -83,9 +83,15 @@ public class ChefLogic {
         return data.getMenu().get(index);
     }
 
+
+    /**
+     * Metodo che ritorna il menù dalla classe data
+     * @return arraylist di piatti che compongono il menù
+     */
     public ArrayList<Piatto> getMenu(){
         return data.getMenu();
     }
+
 
     public void Load(){
         data.loadMenu();

@@ -175,6 +175,9 @@ public class Chef extends JPanel{
             }
         });
 
+        /**
+         * Listener per la chiusura dell'applicazione
+         */
        frame.addWindowListener(new WindowAdapter() {
            @Override
            public void windowClosing(WindowEvent e) {
@@ -182,7 +185,9 @@ public class Chef extends JPanel{
            }
        });
 
-        //NON VOGLIO FARLO GENERICS
+        /**
+         * Listener per la sincronizzazione delle Jlist (implementabile con le Collections)
+         */
         BevandeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -194,7 +199,9 @@ public class Chef extends JPanel{
             }
         });
 
-       //NON VOGLIO FARLO GENERICS
+        /**
+         * Listener per la sincronizzazione delle Jlist (implementabile con le Collections)
+         */
         AntipastiList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -206,7 +213,9 @@ public class Chef extends JPanel{
             }
         });
 
-        //NON VOGLIO FARLO GENERICS
+        /**
+         * Listener per la sincronizzazione delle Jlist (implementabile con le Collections)
+         */
         PrimiList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -218,7 +227,9 @@ public class Chef extends JPanel{
             }
         });
 
-        //NON VOGLIO FARLO GENERICS
+        /**
+         * Listener per la sincronizzazione delle Jlist (implementabile con le Collections)
+         */
         SecondiList.addListSelectionListener(new ListSelectionListener() {
            @Override
            public void valueChanged(ListSelectionEvent e) {
@@ -230,7 +241,9 @@ public class Chef extends JPanel{
            }
        });
 
-        //NON VOGLIO FARLO GENERICS
+        /**
+         * Listener per la sincronizzazione delle Jlist (implementabile con le Collections)
+         */
         DolciList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -312,7 +325,6 @@ public class Chef extends JPanel{
      * Metodo per salvare le modifiche in caso di ritorno alla homepage
      */
     public void ConfermaBack(){
-        if(!(chefLogic.getMenu().equals(changed))){
             int risposta= JOptionPane.showConfirmDialog(frame,"Non hai confermato le modifiche, intendi farlo?","Conferma modfiche",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
             if(risposta==JOptionPane.YES_OPTION){
                 chefLogic.finalizzaMenu();
@@ -324,18 +336,12 @@ public class Chef extends JPanel{
                 chefLogic.getMenu().clear();
                 HomePage homePage = new HomePage();
             }
-        }else {
-            frame.dispose();
-            chefLogic.getMenu().clear();
-            HomePage homePage = new HomePage();
         }
-    }
 
     /**
      * Metodo per salvare le modifiche in caso di chiusura dell'applicazione
      */
     public void ConfermaClose(){
-        if(!(chefLogic.getMenu().equals(changed))){
             int risposta= JOptionPane.showConfirmDialog(frame,"Non hai confermato le modifiche, intendi farlo?","Conferma modfiche",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
             if(risposta==JOptionPane.YES_OPTION){
                 chefLogic.finalizzaMenu();
@@ -345,12 +351,12 @@ public class Chef extends JPanel{
                 frame.dispose();
                 chefLogic.getMenu().clear();
             }
-        }else {
-            frame.dispose();
-            chefLogic.getMenu().clear();
         }
-    }
 
+    /**
+     *  Metodo trovare la Jlist selezionata utilizzato nella modifica
+      * @return jlist dell'elemento che l'utente ha selzionato
+     */
     public JList FindEditModels(){
         DefaultListModel bmodel = (DefaultListModel) BevandeList.getModel();
         DefaultListModel pmodel = (DefaultListModel) PrimiList.getModel();
@@ -371,6 +377,10 @@ public class Chef extends JPanel{
         return null;
     }
 
+    /**
+     * Metodo trovare la Jlist selezionata utilizzato nel rimuovi
+     * @return jlist dell'elemento che l'utente ha selzionato
+     */
     public JList FindRemoveModels(){
         DefaultListModel bmodel = (DefaultListModel) BevandeList.getModel();
         DefaultListModel pmodel = (DefaultListModel) PrimiList.getModel();

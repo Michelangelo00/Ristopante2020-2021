@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe che implementa la gestione dei dati dell'applicazione (menù, ordini) e i relativi metodi di scrittura su file
+ */
 public class Data {
 
     private static File inputfile= new File("menu.txt");
@@ -17,7 +20,9 @@ public class Data {
 
     }
 
-
+    /**
+     * Metodo che legge il file di testo menù.txt e crea un arraylist di piatti
+     */
     public  void loadMenu(){
             try {
                 BufferedReader reader= new BufferedReader(new FileReader(inputfile));
@@ -40,10 +45,14 @@ public class Data {
             }
     }
 
+
     public ArrayList<Piatto> getMenu() {
         return  menu;
     }
 
+    /**
+     * Metodo che scrive su file le modifiche effettuate al menù
+     */
     public  void WriteToFile(){
 
         try{
@@ -58,16 +67,16 @@ public class Data {
         }
     }
 
+    /**
+     * Metodo che aggiunge alla lista di ordini un ordine dato in input
+     * @param ordine ordine da aggiungere
+     */
     public static void loadOrdini(Ordine ordine){
         ordini.add(ordine);
     }
 
     public ArrayList<Ordine> getOrdini() {
         return ordini;
-    }
-
-    public  void RemovePiatto(Piatto piatto){
-        menu.remove(piatto);
     }
 
 
