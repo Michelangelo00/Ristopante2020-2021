@@ -348,6 +348,7 @@ public class Chef extends JPanel{
         DefaultListModel pmodel = (DefaultListModel) PrimiList.getModel();
         DefaultListModel smodel = (DefaultListModel) SecondiList.getModel();
         DefaultListModel dmodel = (DefaultListModel) DolciList.getModel();
+        DefaultListModel amodel = (DefaultListModel) AntipastiList.getModel();
         if(bmodel.contains(BevandeList.getSelectedValue())){
             return BevandeList;
         }else if(pmodel.contains(PrimiList.getSelectedValue())){
@@ -356,6 +357,8 @@ public class Chef extends JPanel{
             return SecondiList;
         }else if(dmodel.contains(DolciList.getSelectedValue())){
             return DolciList;
+        }else if(amodel.contains(AntipastiList.getSelectedValue())){
+            return AntipastiList;
         }
         return null;
     }
@@ -365,6 +368,8 @@ public class Chef extends JPanel{
         DefaultListModel pmodel = (DefaultListModel) PrimiList.getModel();
         DefaultListModel smodel = (DefaultListModel) SecondiList.getModel();
         DefaultListModel dmodel = (DefaultListModel) DolciList.getModel();
+        DefaultListModel amodel = (DefaultListModel) AntipastiList.getModel();
+
         if(bmodel.contains(BevandeList.getSelectedValue())){
             return BevandeList;
         }else if(pmodel.contains(PrimiList.getSelectedValue())){
@@ -373,6 +378,8 @@ public class Chef extends JPanel{
             return SecondiList;
         }else if(dmodel.contains(DolciList.getSelectedValue())){
             return DolciList;
+        }else if(amodel.contains(AntipastiList.getSelectedValue())){
+            return AntipastiList;
         }
         return null;
     }
