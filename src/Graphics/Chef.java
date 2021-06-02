@@ -111,7 +111,7 @@ public class Chef extends JPanel{
         /**
          * Listener per confermare le modifiche effettuate al menù
          */
-        confermaAggiunteButton.addActionListener(new ActionListener() {
+        /*confermaAggiunteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -119,7 +119,7 @@ public class Chef extends JPanel{
                 JOptionPane.showMessageDialog(frame,"Modifiche salvate correttamente!");
                 changed= new ArrayList<>(chefLogic.getMenu());
             }
-        });
+        });*/
 
         /**
          * Listener per rimuovere un piatto dal menù
