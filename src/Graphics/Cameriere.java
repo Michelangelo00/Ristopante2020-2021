@@ -133,6 +133,7 @@ public class Cameriere extends JPanel{
                     //ordine.setTavoloID(0); //resetto il numero del tavolo
                     tavoloLabel.setText("Tavolo N."); //resetto la grafica del numero tavolo
                     System.out.println("Ordine: " + ordine + " finalizzato");
+                    JOptionPane.showMessageDialog(frame, "Ordine tavolo N." + ordine.getTavoloID() + " inviato con successo!","Info",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
