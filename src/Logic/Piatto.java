@@ -3,7 +3,7 @@ package Logic;
 /**
  * classe che rappresenta un piatto del menu
  */
-public class Piatto {
+public class Piatto{
 
     private String nome; //nome del piatto
     private double prezzo; //prezzo del piatto
@@ -20,6 +20,8 @@ public class Piatto {
         this.quantita = 1;
         this.tipologia= piattoParam.getTipologia();
     }
+
+
 
 
     /**

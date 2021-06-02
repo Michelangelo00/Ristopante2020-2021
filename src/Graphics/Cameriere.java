@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Cameriere extends JPanel{
     private JPanel CamerierePanel;
@@ -44,6 +46,8 @@ public class Cameriere extends JPanel{
         /**
          * popola l'array list menu
          */
+
+        /* ORIGINALE
         ArrayList<Piatto> menu = cameriereL.getMenu();
         System.out.println(menu);
         DefaultListModel dlmMenu = new DefaultListModel();
@@ -51,6 +55,17 @@ public class Cameriere extends JPanel{
             dlmMenu.addElement(piatto);
         }
         this.menuList.setModel(dlmMenu);
+
+         */
+        ArrayList<Piatto> menu = cameriereL.getMenu();
+        Collections.sort(menu,(a1,a2) -> a1.getTipologia().compareTo(a2.getTipologia())); //GUARDA IN ALTO, CI SONO IO
+        System.out.println(menu);
+        DefaultListModel dlmMenu = new DefaultListModel();
+        for(Piatto piatto : menu){
+            dlmMenu.addElement(piatto);
+        }
+        this.menuList.setModel(dlmMenu);
+
 
         /**
          * dlm lista dell'ordine
