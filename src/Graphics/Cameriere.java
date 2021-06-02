@@ -135,6 +135,9 @@ public class Cameriere extends JPanel{
                     System.out.println("Ordine: " + ordine + " finalizzato");
                     JOptionPane.showMessageDialog(frame, "Ordine tavolo N." + ordine.getTavoloID() + " inviato con successo!","Info",JOptionPane.INFORMATION_MESSAGE);
                 }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Impossibile inviare un ordine inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
 
@@ -152,6 +155,9 @@ public class Cameriere extends JPanel{
 
                     //GPX
                     dlmOrdine.removeElement(piattoQ);
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Impossibile rimuovere un piatto ad un ordine inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -172,29 +178,24 @@ public class Cameriere extends JPanel{
         modificaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Piatto piattoQ = ordineList.getSelectedValue();
-                int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
+                if(ordine != null && ordine.getTavoloID() != 0){
+                    Piatto piattoQ = ordineList.getSelectedValue();
+                    int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
 
-                if(nuovaQuantita > 0 && nuovaQuantita < 100){
-                    piattoQ.setQuantita(nuovaQuantita);
-                    CamerierePanel.repaint();
+                    if(nuovaQuantita > 0 && nuovaQuantita < 100){
+                        piattoQ.setQuantita(nuovaQuantita);
+                        CamerierePanel.repaint();
+                    }
+                    else{
+                        System.out.println("mi dispiace ci hai sgarato");
+                    }
                 }
                 else{
-                    System.out.println("mi dispiace ci hai sgarato");
+                    JOptionPane.showMessageDialog(frame, "Impossibile modificare un piatto ad un ordine inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
 
 
-    }
-
-    public boolean isParsable(String stringToConvert){
-
-        for(int i = 0; i < stringToConvert.length(); i++){
-            //if(stringToConvert.charAt(i).)
-        }
-
-
-        return true;
     }
 }
