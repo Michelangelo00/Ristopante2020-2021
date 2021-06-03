@@ -36,7 +36,7 @@
             <constraints border-constraint="South"/>
             <properties>
               <font size="16"/>
-              <text value="Label"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
