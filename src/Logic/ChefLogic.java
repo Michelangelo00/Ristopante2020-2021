@@ -9,6 +9,9 @@ import java.util.*;
 public class ChefLogic {
     private static Data data = new Data();
 
+    /**
+     * costruttore di chef logic che richiama il metodo Load()
+     */
     public ChefLogic(){
         Load();
     }
@@ -92,7 +95,9 @@ public class ChefLogic {
         return data.getMenu();
     }
 
-
+    /**
+     * richiama loadMenu della classe Data
+     */
     public void Load(){
         data.loadMenu();
     }

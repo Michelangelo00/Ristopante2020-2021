@@ -1,5 +1,8 @@
 package Logic;
 
+/**
+ * tester per la classe Ordine
+ */
 public class OrdineTester {
 
     public static void main(String[] args) {

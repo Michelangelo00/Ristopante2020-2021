@@ -2,6 +2,9 @@ package Logic;
 
 import java.util.ArrayList;
 
+/**
+ * classe che implementa il ruolo del cameriere(aggiungere, modificare, eliminare piatti dall'ordine)
+ */
 public class CameriereLogic {
 
     private static Data data = new Data(); //creo un istanza di data
