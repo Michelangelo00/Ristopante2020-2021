@@ -44,7 +44,7 @@ public class Cameriere extends JPanel{
 
 
         /**
-         * popola l'array list menu
+         * popola l'array list menu e lo ordina
          */
 
         /* ORIGINALE
