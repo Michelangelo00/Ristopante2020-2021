@@ -16,8 +16,6 @@ import java.util.Arrays;
  */
 public class Cuoco extends JPanel{
     private JPanel CuocoPanel;
-    private JList ListaOrdiniTavolo;
-    private JPanel PanelListaTavoli;
     private JButton Evadi;
     private JButton mostraPiatti;
     private JPanel CheckPanel;
@@ -27,8 +25,6 @@ public class Cuoco extends JPanel{
     private JFrame frame;
     private CuocoLogic cuoco = new CuocoLogic();
     private int count_box=0;
-    DefaultListModel<Integer> model = new DefaultListModel<>();
-    DefaultListModel<Piatto> modelPiatto = new DefaultListModel<>();
     private ActionListener actionListener;
 
 
@@ -39,14 +35,13 @@ public class Cuoco extends JPanel{
         frame.setContentPane(CuocoPanel);
         CheckPanel.setLayout(new BoxLayout(CheckPanel,BoxLayout.Y_AXIS));
 
-        loadTavoli();
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
 
 
-        Evadi.addActionListener(new ActionListener() {
+        /*Evadi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for(Ordine or: cuoco.GetOrdiniCuoco()){
@@ -56,18 +51,17 @@ public class Cuoco extends JPanel{
                 }
                 model.removeElement(ListaOrdiniTavolo.getSelectedValue());
             }
-        });
+        });*/
 
         mostraPiatti.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadPiatti( (Integer) ListaOrdiniTavolo.getSelectedValue());
+                //loadPiatti( (Integer) ListaOrdiniTavolo.getSelectedValue());
                 for(int j=0;j<cb.size();j++){
                     for(int i=0;i<cb.get(j).size()-1;i++){
                         cb.get(j).get(i).setVisible(true);
                     }
                 }
-                modelPiatto.removeAllElements();
             }
         });
 
@@ -97,81 +91,84 @@ public class Cuoco extends JPanel{
         actionListener= new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 for(int i=0;i<cb.size();i++) {
                     for(int j=0;j<cb.get(i).size();j++){
+                        System.out.println(cb.get(i).get(j).getText());
                         if(cb.get(i).get(j).isSelected()){
-                            System.out.println(cb.get(i).get(j).getText()+cb.get(i).size());
-                            cb.get(i).remove(j);
-
+                            //System.out.println(cb.get(i).get(j).getText());
+                            //CheckPanel.remove(cb.get(i).get(j));
+                            //cb.get(i).remove(j);
+                            cb.get(i).get(j).setEnabled(false);
+                            //System.out.println("caccioddio  "+cb.get(i).get(j).isEnabled());
                         }
                     }
-
-                    if(cb.get(i).size()==1){
+                    boolean contains=Check(cb.get(i));
+                    System.out.println(contains);
+                    if(contains){
                         int risposta= JOptionPane.showConfirmDialog(frame,"Ordine del tavolo "+cb.get(i).get(0).getText()+" è stato completato, vuoi eliminarlo?","Elimina ordine",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                         if(risposta==JOptionPane.YES_OPTION){
                             cuoco.EvadiTavolo( cb.get(i).get(0).getText());
-                            cb.get(i).clear();
-                            Pulisci(cb.get(i));
-                            model.removeElement(ListaOrdiniTavolo.getSelectedValue());
-                            modelPiatto.removeAllElements();
 
+                            frame.revalidate();
+                            frame.repaint();
                         }
                     }
+
                 }
             }
 
         };
+
+        loadPiatti();
     }
 
 
-    public void loadTavoli(){
+
+
+    public void loadPiatti(){
+        String tav;
         for(Ordine o: cuoco.GetOrdiniCuoco()) {
             if (o.getStato() == 1) {
-                model.addElement(o.getTavoloID());
-            }
-        }
-        ListaOrdiniTavolo = new JList();
-        ListaOrdiniTavolo.setModel(model);
-        PanelListaTavoli.add(ListaOrdiniTavolo);
-    }
-
-
-
-    public void loadPiatti(int NTavolo){
-        ArrayList<JCheckBox> check = new ArrayList<>();
-        String tav = null;
-        for(Ordine o: cuoco.GetOrdiniCuoco()){
-            if(o.getTavoloID() == NTavolo){
-                for(Piatto p: o.getPiatti()){
-                    modelPiatto.addElement(p);
+                ArrayList<JCheckBox> check = new ArrayList<>();
+                tav = String.valueOf(o.getTavoloID());
+                CheckPanel.add(new JLabel("Tavolo " + tav));
+                for (int i = 0; i < o.getPiatti().size(); i++) {
+                    JCheckBox c = new JCheckBox();
+                    c.setText(o.getPiatti().get(i).getNome() + " x" + o.getPiatti().get(i).getQuantita());
+                    check.add(c);
+                    check.get(i).addActionListener(actionListener);
+                    CheckPanel.add(c);
+                    check.get(i).setVisible(true);
                 }
-                tav=String.valueOf(o.getTavoloID());
-
+                CheckPanel.add(new JLabel("-------------------------------"));
+                JCheckBox tavolo = new JCheckBox(tav);
+                tavolo.setVisible(false);
+                check.add(tavolo);
+                cb.add(check);
             }
         }
 
-        for(int i=0; i<modelPiatto.getSize();i++){
-            JCheckBox c = new JCheckBox();
-            c.setText(modelPiatto.get(i).getNome()+" x"+modelPiatto.get(i).getQuantita());
-            check.add(c);
-            check.get(i).addActionListener(actionListener);
-            check.get(i).setVisible(false);
-        }
-        CheckPanel.add(new JLabel("Tavolo "+ListaOrdiniTavolo.getSelectedValue()));
-        for(int i=0; i<check.size();i++){
-            CheckPanel.add(check.get(i));
-        }
-        CheckPanel.add(new JLabel("-------------------------------"));
-        JCheckBox tavolo = new JCheckBox(tav);
-        tavolo.setVisible(false);
-        check.add(tavolo);
-        cb.add(check);
     }
+
+
 
     public void Pulisci(ArrayList<JCheckBox> arr){
         for(int i=0;i<arr.size();i++){
-            CheckPanel.remove(arr.get(i));
+            CheckPanel.removeAll();
         }
+    }
+
+    public boolean Check(ArrayList<JCheckBox> arr){
+        boolean ris=false;
+        for (int i = 0; i < arr.size()-1; i++) {
+            if(!(arr.get(i).isEnabled())){
+                ris=true;
+            }else{
+                ris=false;
+            }
+        }
+        return ris;
     }
 
 }
