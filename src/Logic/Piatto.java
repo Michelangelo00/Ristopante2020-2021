@@ -58,6 +58,7 @@ public class Piatto{
         this.nome = nome;
         this.prezzo = prezzo;
         this.quantita = quantita;
+        this.tipologia = tipologia;
     }
 
 
@@ -102,5 +103,9 @@ public class Piatto{
 
     public Type getTipologia() {
         return tipologia;
+    }
+
+    public void setTipologia(Type tipologia){
+        this.tipologia = tipologia;
     }
 }
