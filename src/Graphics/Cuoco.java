@@ -25,7 +25,6 @@ public class Cuoco extends JPanel{
     private ArrayList<ArrayList<JCheckBox>> cb= new ArrayList<ArrayList<JCheckBox>>();
     private JFrame frame;
     private CuocoLogic cuoco = new CuocoLogic();
-    private int count_box=0;
     private ActionListener actionListener;
 
 
@@ -58,7 +57,6 @@ public class Cuoco extends JPanel{
         mostraPiatti.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //loadPiatti( (Integer) ListaOrdiniTavolo.getSelectedValue());
                 for(int j=0;j<cb.size();j++){
                     for(int i=0;i<cb.get(j).size()-1;i++){
                         cb.get(j).get(i).setVisible(true);
@@ -93,18 +91,14 @@ public class Cuoco extends JPanel{
         actionListener= new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 for(int i=0;i<cb.size();i++) {
                     for(int j=0;j<cb.get(i).size()-1;j++){
                         if(cb.get(i).get(j).isSelected()){
-                            //CheckPanel.remove(cb.get(i).get(j));
-                            //cb.get(i).remove(j);
                             cb.get(i).get(j).setEnabled(false);
                         }
                     }
                     Stream<JCheckBox> stream = cb.get(i).stream();
                     boolean contains= stream.limit(cb.get(i).size()-1).anyMatch(Component::isEnabled);
-                    System.out.println(contains);
                     if(!(contains)){
                         int risposta= JOptionPane.showConfirmDialog(frame,"Ordine del tavolo "+cb.get(i).get(cb.get(i).size()-1).getText()+" è stato completato, vuoi eliminarlo?","Elimina ordine",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                         if(risposta==JOptionPane.YES_OPTION){
@@ -154,10 +148,19 @@ public class Cuoco extends JPanel{
 
 
     public void Pulisci(ArrayList<JCheckBox> arr, String tavolo){
-        for(int i=0;i<arr.size();i++){
+        Component[] components= CheckPanel.getComponents();
+        for(Component c: components){
+            if(c instanceof JLabel){
+                if(((JLabel) c).getText().equals("Tavolo " +tavolo)){
+                    CheckPanel.remove(c);
+                }else if(((JLabel) c).getText().equals("-------------------------------")){
+                    ((JLabel) c).setText("Tavolo "+tavolo+" completato!");
+                }
+            }
+        }
+        for(int i=0;i<arr.size()-1;i++){
             CheckPanel.remove(arr.get(i));
         }
-        CheckPanel.add(new JLabel("Tavolo "+tavolo+" completato!"));
     }
 
 }
