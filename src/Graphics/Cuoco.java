@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * Classe che implementa graficamente la figura del cuoco
@@ -26,6 +27,7 @@ public class Cuoco extends JPanel{
     private CuocoLogic cuoco = new CuocoLogic();
     private int count_box=0;
     private ActionListener actionListener;
+
 
 
 
@@ -93,28 +95,26 @@ public class Cuoco extends JPanel{
             public void actionPerformed(ActionEvent e) {
 
                 for(int i=0;i<cb.size();i++) {
-                    for(int j=0;j<cb.get(i).size();j++){
-                        System.out.println(cb.get(i).get(j).getText());
+                    for(int j=0;j<cb.get(i).size()-1;j++){
                         if(cb.get(i).get(j).isSelected()){
-                            //System.out.println(cb.get(i).get(j).getText());
                             //CheckPanel.remove(cb.get(i).get(j));
                             //cb.get(i).remove(j);
                             cb.get(i).get(j).setEnabled(false);
-                            //System.out.println("caccioddio  "+cb.get(i).get(j).isEnabled());
                         }
                     }
-                    boolean contains=Check(cb.get(i));
+                    Stream<JCheckBox> stream = cb.get(i).stream();
+                    boolean contains= stream.limit(cb.get(i).size()-1).anyMatch(Component::isEnabled);
                     System.out.println(contains);
-                    if(contains){
-                        int risposta= JOptionPane.showConfirmDialog(frame,"Ordine del tavolo "+cb.get(i).get(0).getText()+" è stato completato, vuoi eliminarlo?","Elimina ordine",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                    if(!(contains)){
+                        int risposta= JOptionPane.showConfirmDialog(frame,"Ordine del tavolo "+cb.get(i).get(cb.get(i).size()-1).getText()+" è stato completato, vuoi eliminarlo?","Elimina ordine",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                         if(risposta==JOptionPane.YES_OPTION){
-                            cuoco.EvadiTavolo( cb.get(i).get(0).getText());
-
+                            cuoco.EvadiTavolo( cb.get(i).get(cb.get(i).size()-1).getText());
+                            Pulisci(cb.get(i),cb.get(i).get(cb.get(i).size()-1).getText());
+                            cb.remove(i);
                             frame.revalidate();
                             frame.repaint();
                         }
                     }
-
                 }
             }
 
@@ -153,22 +153,11 @@ public class Cuoco extends JPanel{
 
 
 
-    public void Pulisci(ArrayList<JCheckBox> arr){
+    public void Pulisci(ArrayList<JCheckBox> arr, String tavolo){
         for(int i=0;i<arr.size();i++){
-            CheckPanel.removeAll();
+            CheckPanel.remove(arr.get(i));
         }
-    }
-
-    public boolean Check(ArrayList<JCheckBox> arr){
-        boolean ris=false;
-        for (int i = 0; i < arr.size()-1; i++) {
-            if(!(arr.get(i).isEnabled())){
-                ris=true;
-            }else{
-                ris=false;
-            }
-        }
-        return ris;
+        CheckPanel.add(new JLabel("Tavolo "+tavolo+" completato!"));
     }
 
 }
