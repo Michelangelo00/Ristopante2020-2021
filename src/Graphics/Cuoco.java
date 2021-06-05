@@ -154,7 +154,7 @@ public class Cuoco extends JPanel{
                 if(((JLabel) c).getText().equals("Tavolo " +tavolo)){
                     CheckPanel.remove(c);
                 }else if(((JLabel) c).getText().equals("-------------------------------")){
-                    ((JLabel) c).setText("Tavolo "+tavolo+" completato!");
+                    //((JLabel) c).setText("Tavolo "+tavolo+" completato!");
                 }
             }
         }
