@@ -126,7 +126,7 @@ public class Cameriere extends JPanel{
         inviaOrdineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(ordine != null && ordine.getTavoloID() != 0){
+                if(ordine != null && ordine.getTavoloID() != 0 && !(ordine.getPiatti().isEmpty())){
                     cameriereL.FinalizzaOrdine(ordine); //invio l'ordine al cuoco
                     dlmOrdine.clear(); //svuoto la GUI
                     //ordine.SvuotaOrdine(); // svuoto l'ordine
@@ -136,7 +136,7 @@ public class Cameriere extends JPanel{
                     JOptionPane.showMessageDialog(frame, "Ordine tavolo N." + ordine.getTavoloID() + " inviato con successo!","Info",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(frame, "Impossibile inviare un ordine inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Impossibile inviare un ordine vuoto o inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -148,13 +148,16 @@ public class Cameriere extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ordine != null && ordine.getTavoloID() != 0){
-                    Piatto piattoQ = ordineList.getSelectedValue();
+                    if(!(ordineList.isSelectionEmpty())) {
+                        Piatto piattoQ = ordineList.getSelectedValue();
+                        cameriereL.RimuoviPiatto(ordine,piattoQ);
+                        System.out.println("Rimosso piatto: " + piattoQ + " all'ordine: " + ordine);
 
-                    cameriereL.RimuoviPiatto(ordine,piattoQ);
-                    System.out.println("Rimosso piatto: " + piattoQ + " all'ordine: " + ordine);
-
-                    //GPX
-                    dlmOrdine.removeElement(piattoQ);
+                        //GPX
+                        dlmOrdine.removeElement(piattoQ);
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Seleziona un piatto da rimuovere","Rimuovi piatto",JOptionPane.WARNING_MESSAGE);
+                    }
                 }
                 else{
                     JOptionPane.showMessageDialog(frame, "Impossibile rimuovere un piatto ad un ordine inesistente","Ordine inesistente",JOptionPane.WARNING_MESSAGE);
@@ -179,15 +182,18 @@ public class Cameriere extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(ordine != null && ordine.getTavoloID() != 0){
-                    Piatto piattoQ = ordineList.getSelectedValue();
-                    int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
+                    if(!(ordineList.isSelectionEmpty())) {
+                        Piatto piattoQ = ordineList.getSelectedValue();
+                        int nuovaQuantita = Integer.parseInt(JOptionPane.showInputDialog("Modifica quantità", piattoQ.getQuantita()));
 
-                    if(nuovaQuantita > 0 && nuovaQuantita < 100){
-                        piattoQ.setQuantita(nuovaQuantita);
-                        CamerierePanel.repaint();
-                    }
-                    else{
-                        System.out.println("mi dispiace ci hai sgarato");
+                        if (nuovaQuantita > 0 && nuovaQuantita < 100) {
+                            piattoQ.setQuantita(nuovaQuantita);
+                            CamerierePanel.repaint();
+                        } else {
+                            System.out.println("mi dispiace ci hai sgarato");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Seleziona un piatto da modificare","Modifica piatto",JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 else{

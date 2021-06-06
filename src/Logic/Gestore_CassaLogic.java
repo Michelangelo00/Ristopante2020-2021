@@ -1,23 +1,28 @@
 package Logic;
 
-import Graphics.Gestore_Cassa;
+
 
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 
+/**
+ * Classe che implementa logicamente la figura del Gestore Cassa
+ */
 public class Gestore_CassaLogic {
     private Data data = new Data();
 
-    public Gestore_CassaLogic(){
-
-    }
 
     public ArrayList<Ordine> GetOrdini(){
         return data.getOrdini();
     }
 
+    /**
+     * Metodo per creare il format della ricevuta utilizzata per il pagamento dei tavoli
+     * @param pj printerjob corrispondente per la creazione della ricevuta
+     * @return pf pageformat format della ricevuta
+     */
     public PageFormat CreaPageFormat(PrinterJob pj){
         PageFormat pf = new PageFormat();
         Paper paper = pf.getPaper();
@@ -37,7 +42,5 @@ public class Gestore_CassaLogic {
         pf.setPaper(paper);
         return pf;
     }
-
-
 
 }

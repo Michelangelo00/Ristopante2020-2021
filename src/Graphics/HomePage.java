@@ -7,6 +7,10 @@ import java.awt.event.ActionListener;
 
 import Logic.Data;
 
+
+/**
+ * Classe che gestisce il cambio dei ruoli e la creazione delle rispettive classi grafice
+ */
 public class HomePage {
     private JFrame frame;
     private JButton responsabileDiCassaButton;
@@ -22,12 +26,20 @@ public class HomePage {
         frame.setContentPane(HomePagePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        /**
+         * Listener per il bottone per chiudere l'applicazione
+         */
         esciXButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
+
+        /**
+         *  Listener per il bottone per passare allo chef
+         */
         chefButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,6 +49,10 @@ public class HomePage {
 
             }
         });
+
+        /**
+         *  Listener per il bottone per passare al cuoco
+         */
         cuocoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +61,10 @@ public class HomePage {
                 cuoco.setVisible(true);
             }
         });
+
+        /**
+         *  Listener per il bottonep er passare al cameriere
+         */
         cameriereButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,6 +73,10 @@ public class HomePage {
                 cameriere.setVisible(true);
             }
         });
+
+        /**
+         *  Listener per il bottone per passare al responsabile di cassa
+         */
         responsabileDiCassaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,7 +87,10 @@ public class HomePage {
         });
     }
 
-
+    /**
+     * Main per l'avvio dell'applicazione
+     * @param args nessun argomento da passare in input
+     */
     public static void main(String[] args) {
         Data data = new Data();
         HomePage homePage= new HomePage();

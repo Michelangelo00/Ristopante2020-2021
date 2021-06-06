@@ -10,8 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.*;
 
-import static java.awt.print.Printable.NO_SUCH_PAGE;
-import static java.awt.print.Printable.PAGE_EXISTS;
+
+/**
+ *  Classe che implementa graficamente la figura del Gestore Cassa
+ */
 
 public class Gestore_Cassa extends JPanel{
     private Gestore_CassaLogic gestore_cassaLogic= new Gestore_CassaLogic();
@@ -37,7 +39,9 @@ public class Gestore_Cassa extends JPanel{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-
+        /**
+         * Listener del bottone per tornare alla HomePage
+         */
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,12 +50,14 @@ public class Gestore_Cassa extends JPanel{
             }
         });
 
-
+        /**
+         * Listener del bottone per caricare e visuallizare  i piatti del tavolo selezionato
+         */
         checkOutTavoloSelezionatoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!(OrdiniModel.isEmpty())){
-                    if(!(TavoliList.isSelectionEmpty())){
+                    if(!(TavoliList.isSelectionEmpty()) && PiattiOrdineModel.getSize()==0){
                         LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
                         PiattiList = new JList();
                         PiattiList.setModel(PiattiOrdineModel);
@@ -60,19 +66,23 @@ public class Gestore_Cassa extends JPanel{
                         Tot.setText(String.valueOf(CalcolaTot()));
                         OrdiniModel.remove(TavoliList.getSelectedIndex());
                     }else{
-                        JOptionPane.showMessageDialog(frame, "Nessun piatto da pagare");
+                        JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
                     }
                 }else{
-                    JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
+                    JOptionPane.showMessageDialog(frame, "Nessun piatto da pagare");
                 }
 
             }
         });
+
+        /**
+         * Listener dell bottone per procedere al pagamento del tavolo e la creazione della rispettiva ricevuta
+         */
         pagaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PrinterJob pj = PrinterJob.getPrinterJob();
-                pj.setPrintable(new BillPrintable(), gestore_cassaLogic.CreaPageFormat(pj));
+                pj.setPrintable(new Ricevuta(), gestore_cassaLogic.CreaPageFormat(pj));
                 if(pj.printDialog()) {
                     try {
                         pj.print();
@@ -87,6 +97,9 @@ public class Gestore_Cassa extends JPanel{
         });
     }
 
+    /**
+     * Metodo che crea la lista degli ordini pronti per eseere evasi
+     */
     public void LoadOrdiniList(){
         if (!(gestore_cassaLogic.GetOrdini().isEmpty())) {
             for (Ordine o : gestore_cassaLogic.GetOrdini()) {
@@ -100,6 +113,7 @@ public class Gestore_Cassa extends JPanel{
         }
     }
 
+
     public void LoadPiattiOrdine(int NTavolo){
         for(Ordine o: gestore_cassaLogic.GetOrdini()){
             if(o.getTavoloID()==NTavolo){
@@ -109,6 +123,10 @@ public class Gestore_Cassa extends JPanel{
         PiattiList.setVisible(false);
     }
 
+    /**
+     * Metodo che calcola il totale da pagare del tavolo selezionato
+     * @return tot double totale da pagare
+     */
     public double CalcolaTot(){
         double tot=0;
         for(int i=0; i<PiattiOrdineModel.getSize();i++){
@@ -117,7 +135,10 @@ public class Gestore_Cassa extends JPanel{
         return tot;
     }
 
-    public class BillPrintable implements Printable {
+    /**
+     * Classe che si occupa di creare graficamente la ricevuta del tavolo selezionato
+     */
+    public class Ricevuta implements Printable {
         @Override
         public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
             int ris = NO_SUCH_PAGE;
