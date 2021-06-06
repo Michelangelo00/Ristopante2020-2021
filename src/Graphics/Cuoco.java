@@ -38,6 +38,7 @@ public class Cuoco extends JPanel{
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         frame.setVisible(true);
 
 
@@ -142,7 +143,7 @@ public class Cuoco extends JPanel{
                 cb.add(check);
             }
         }
-
+        frame.pack();
     }
 
 
@@ -151,15 +152,16 @@ public class Cuoco extends JPanel{
         Component[] components= CheckPanel.getComponents();
         for(Component c: components){
             if(c instanceof JLabel){
-                if(((JLabel) c).getText().equals("Tavolo " +tavolo)){
+                if(((JLabel) c).getText().equals("Tavolo " +tavolo)) {
                     CheckPanel.remove(c);
-                }else if(((JLabel) c).getText().equals("-------------------------------")){
-                    //((JLabel) c).setText("Tavolo "+tavolo+" completato!");
                 }
             }
         }
         for(int i=0;i<arr.size()-1;i++){
             CheckPanel.remove(arr.get(i));
+        }
+        if(Arrays.stream(CheckPanel.getComponents()).noneMatch(c -> c instanceof JCheckBox)){
+            CheckPanel.removeAll();
         }
     }
 

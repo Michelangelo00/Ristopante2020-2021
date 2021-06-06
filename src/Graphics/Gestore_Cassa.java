@@ -36,6 +36,8 @@ public class Gestore_Cassa extends JPanel{
         LoadOrdiniList();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,16 +45,23 @@ public class Gestore_Cassa extends JPanel{
                 HomePage homePage= new HomePage();
             }
         });
+
+
         checkOutTavoloSelezionatoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(PiattiList.getModel() != null ){
-                    LoadPiattiOrdine((Integer)TavoliList.getSelectedValue());
-                    PiattiList = new JList();
-                    PiattiList.setModel(PiattiOrdineModel);
-                    PiattiListPanel.add(PiattiList);
-                    PiattiList.setVisible(true);
-                    Tot.setText(String.valueOf(CalcolaTot()));
+                if(!(OrdiniModel.isEmpty())){
+                    if(!(TavoliList.isSelectionEmpty())){
+                        LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
+                        PiattiList = new JList();
+                        PiattiList.setModel(PiattiOrdineModel);
+                        PiattiListPanel.add(PiattiList);
+                        PiattiList.setVisible(true);
+                        Tot.setText(String.valueOf(CalcolaTot()));
+                        OrdiniModel.remove(TavoliList.getSelectedIndex());
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Nessun piatto da pagare");
+                    }
                 }else{
                     JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
                 }
@@ -79,15 +88,16 @@ public class Gestore_Cassa extends JPanel{
     }
 
     public void LoadOrdiniList(){
-        for(Ordine o: gestore_cassaLogic.GetOrdini()){
-            System.out.println(o.getPiatti());
-            if(o.getStato()==2){
-                OrdiniModel.addElement(o.getTavoloID());
+        if (!(gestore_cassaLogic.GetOrdini().isEmpty())) {
+            for (Ordine o : gestore_cassaLogic.GetOrdini()) {
+                if (o.getStato() == 2) {
+                    OrdiniModel.addElement(o.getTavoloID());
+                }
             }
+            TavoliList = new JList();
+            TavoliList.setModel(OrdiniModel);
+            TavoliPanel.add(TavoliList);
         }
-        TavoliList= new JList();
-        TavoliList.setModel(OrdiniModel);
-        TavoliPanel.add(TavoliList);
     }
 
     public void LoadPiattiOrdine(int NTavolo){
