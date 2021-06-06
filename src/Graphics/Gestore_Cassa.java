@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.*;
+import java.util.ArrayList;
 
 
 /**
@@ -23,12 +24,12 @@ public class Gestore_Cassa extends JPanel{
     private JButton checkOutTavoloSelezionatoButton;
     private JButton pagaButton;
     private JButton indietroButton;
-    private JPanel PiattiListPanel;
-    private JList PiattiList;
+    private JPanel PiattiPanel;
+
     private JLabel Tot;
     private JFrame frame;
     private final DefaultListModel<Integer> OrdiniModel= new DefaultListModel<>();
-    private final DefaultListModel<Piatto> PiattiOrdineModel= new DefaultListModel<>();
+
 
 
     public Gestore_Cassa(){
@@ -38,6 +39,8 @@ public class Gestore_Cassa extends JPanel{
         LoadOrdiniList();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        PiattiPanel.setLayout(new BoxLayout(PiattiPanel,BoxLayout.Y_AXIS));
 
         /**
          * Listener del bottone per tornare alla HomePage
@@ -57,14 +60,11 @@ public class Gestore_Cassa extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!(OrdiniModel.isEmpty())){
-                    if(!(TavoliList.isSelectionEmpty()) && PiattiOrdineModel.getSize()==0){
-                        LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
-                        PiattiList = new JList();
-                        PiattiList.setModel(PiattiOrdineModel);
-                        PiattiListPanel.add(PiattiList);
-                        PiattiList.setVisible(true);
-                        Tot.setText(String.valueOf(CalcolaTot()));
-                        OrdiniModel.remove(TavoliList.getSelectedIndex());
+                    if(!(TavoliList.isSelectionEmpty())){
+                        ArrayList<Piatto> PiattiTavolo = LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
+
+                        Tot.setText(String.valueOf(CalcolaTot(PiattiTavolo)));
+                        //OrdiniModel.remove(TavoliList.getSelectedIndex());
                     }else{
                         JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
                     }
@@ -87,7 +87,9 @@ public class Gestore_Cassa extends JPanel{
                     try {
                         pj.print();
                         OrdiniModel.removeElement(TavoliList.getSelectedValue());
-                        PiattiOrdineModel.removeAllElements();
+                        PiattiPanel.removeAll();
+                        frame.revalidate();
+                        frame.repaint();
                         Tot.setText("");
                     } catch (PrinterException ex) {
                         ex.printStackTrace();
@@ -114,23 +116,28 @@ public class Gestore_Cassa extends JPanel{
     }
 
 
-    public void LoadPiattiOrdine(int NTavolo){
+    public ArrayList<Piatto> LoadPiattiOrdine(int NTavolo){
         for(Ordine o: gestore_cassaLogic.GetOrdini()){
             if(o.getTavoloID()==NTavolo){
-                PiattiOrdineModel.addAll(o.getPiatti());
+                for(Piatto p: o.getPiatti()){
+                    PiattiPanel.add(Box.createVerticalStrut(20));
+                    PiattiPanel.add(new JLabel(p.getNome()+"   "+p.getPrezzo()+"€"));
+                    PiattiPanel.add(Box.createVerticalStrut(20));
+                }
+                return o.getPiatti();
             }
         }
-        PiattiList.setVisible(false);
+        return null;
     }
 
     /**
      * Metodo che calcola il totale da pagare del tavolo selezionato
      * @return tot double totale da pagare
      */
-    public double CalcolaTot(){
+    public double CalcolaTot(ArrayList<Piatto> piatti){
         double tot=0;
-        for(int i=0; i<PiattiOrdineModel.getSize();i++){
-            tot+=PiattiOrdineModel.get(i).getPrezzo();
+        for(int i=0; i<piatti.size();i++){
+            tot+=piatti.get(i).getPrezzo();
         }
         return tot;
     }
@@ -182,10 +189,11 @@ public class Gestore_Cassa extends JPanel{
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += headerRectHeight;
-                    for(int i=0; i<PiattiOrdineModel.getSize();i++){
-                        g2d.drawString(" " + PiattiOrdineModel.get(i).getNome() + "                     ",10, y);
-                        g2d.drawString("     "+PiattiOrdineModel.get(i).getPrezzo()+"€",130,y);
-                        sum+=PiattiOrdineModel.get(i).getPrezzo();
+                    ArrayList<Piatto> Piatti = getPiatti((Integer) TavoliList.getSelectedValue());
+                    for(int i=0; i<Piatti.size();i++){
+                        g2d.drawString(" " + Piatti.get(i).getNome() + "                     ",10, y);
+                        g2d.drawString("     "+Piatti.get(i).getPrezzo()+"€",130,y);
+                        sum+=Piatti.get(i).getPrezzo();
                         y += yShift;
                     }
                     g2d.drawString("-------------------------------------", 10, y);
@@ -216,4 +224,16 @@ public class Gestore_Cassa extends JPanel{
             return ris;
         }
     }
+
+    public ArrayList<Piatto> getPiatti(int tavoloID) {
+        if (!(gestore_cassaLogic.GetOrdini().isEmpty())) {
+            for (Ordine o : gestore_cassaLogic.GetOrdini()) {
+                if (o.getTavoloID() == tavoloID) {
+                    return o.getPiatti();
+                }
+            }
+        }
+        return null;
+    }
+
 }
