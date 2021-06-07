@@ -2,9 +2,7 @@ package Logic;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * Classe che implementa la gestione dei dati dell'applicazione (menù, ordini) e i relativi metodi di scrittura su file
@@ -74,6 +72,7 @@ public class Data {
     public static void loadOrdini(Ordine ordine){
         ordini.add(ordine);
     }
+
 
     public ArrayList<Ordine> getOrdini() {
         return ordini;

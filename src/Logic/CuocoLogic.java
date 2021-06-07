@@ -1,6 +1,6 @@
 package Logic;
 
-import java.lang.annotation.Target;
+
 import java.util.ArrayList;
 
 /**
@@ -22,7 +22,7 @@ public class CuocoLogic {
      */
     public void EvadiTavolo(String Tavolo){
         for(int i=0;i<data.getOrdini().size();i++){
-            if(data.getOrdini().get(i).getTavoloID()==Integer.valueOf(Tavolo)){
+            if(data.getOrdini().get(i).getTavoloID()==Integer.parseInt(Tavolo)){
                 data.getOrdini().get(i).setStato(2);
                 break;
             }

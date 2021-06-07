@@ -42,7 +42,6 @@ public class Chef extends JPanel{
     private final DefaultListModel<Piatto> DolciModel= new DefaultListModel<>();
     private final DefaultListModel<Piatto> AntiPastiModel= new DefaultListModel<>();
     private ArrayList<Piatto> changed = new ArrayList<>(chefLogic.getMenu());
-    private ActionListener listActionListener;
 
 
     public Chef() {
@@ -111,15 +110,6 @@ public class Chef extends JPanel{
         /**
          * Listener per confermare le modifiche effettuate al menù
          */
-        /*confermaAggiunteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                chefLogic.finalizzaMenu();
-                JOptionPane.showMessageDialog(frame,"Modifiche salvate correttamente!");
-                changed= new ArrayList<>(chefLogic.getMenu());
-            }
-        });*/
 
         /**
          * Listener per rimuovere un piatto dal menù

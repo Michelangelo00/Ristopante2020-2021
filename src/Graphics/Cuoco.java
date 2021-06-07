@@ -2,8 +2,6 @@ package Graphics;
 
 import Logic.CuocoLogic;
 import Logic.Ordine;
-import Logic.Piatto;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +15,6 @@ import java.util.stream.Stream;
  */
 public class Cuoco extends JPanel{
     private JPanel CuocoPanel;
-    private JButton Evadi;
     private JButton mostraPiatti;
     private JPanel CheckPanel;
     private JButton EvadiPiatto;
@@ -41,46 +38,9 @@ public class Cuoco extends JPanel{
 
         frame.setVisible(true);
 
-
-
-        /*Evadi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(Ordine or: cuoco.GetOrdiniCuoco()){
-                    if ((Integer)ListaOrdiniTavolo.getSelectedValue() == or.getTavoloID()) {
-                        //cuoco.EvadiTavolo(or);
-                    }
-                }
-                model.removeElement(ListaOrdiniTavolo.getSelectedValue());
-            }
-        });*/
-
-        mostraPiatti.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for(int j=0;j<cb.size();j++){
-                    for(int i=0;i<cb.get(j).size()-1;i++){
-                        cb.get(j).get(i).setVisible(true);
-                    }
-                }
-            }
-        });
-
-        EvadiPiatto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Component checkBox[] = CheckPanel.getComponents();
-                for(Component c : checkBox){
-                    if(((JCheckBox)c).isSelected()){
-                        CheckPanel.remove(c);
-                    }
-                }
-                CheckPanel.revalidate();
-                CheckPanel.repaint();
-            }
-        });
-
-
+        /**
+         * Listener del bottone per tornare al menù principale
+         */
         indietroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +49,10 @@ public class Cuoco extends JPanel{
             }
         });
 
+        /**
+         * Listener delle checkbox dei vari piatti per rimuovere l'ordine una volta selezionate tutte le checkbox
+         * dell'ordine corrispondente
+         */
         actionListener= new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,8 +83,10 @@ public class Cuoco extends JPanel{
     }
 
 
-
-
+    /**
+     * Metodo che carica nel panel tutti gli ordini creati dal cuoco pronti per essere serviti, con una
+     * lista di checkbox di piatti per ogni ordine
+     */
     public void loadPiatti(){
         String tav;
         for(Ordine o: cuoco.GetOrdiniCuoco()) {
@@ -146,8 +112,11 @@ public class Cuoco extends JPanel{
         frame.pack();
     }
 
-
-
+    /**
+     * Metodo per rimuovere del panel gli ordini che sono stati compleatamente serviti
+     * @param arr lista di checkbox dei piatti dell'ordine da rimuovere
+     * @param tavolo tavolo dell'ordine da rimuovere
+     */
     public void Pulisci(ArrayList<JCheckBox> arr, String tavolo){
         Component[] components= CheckPanel.getComponents();
         for(Component c: components){

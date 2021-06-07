@@ -3,7 +3,6 @@ package Graphics;
 import Logic.Gestore_CassaLogic;
 import Logic.Ordine;
 import Logic.Piatto;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -60,13 +59,14 @@ public class Gestore_Cassa extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!(OrdiniModel.isEmpty())){
-                    if(!(TavoliList.isSelectionEmpty())){
-                        ArrayList<Piatto> PiattiTavolo = LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
+                    if(!(TavoliList.isSelectionEmpty())) {
+                        if (PiattiPanel.getComponents().length == 0) {
+                            ArrayList<Piatto> PiattiTavolo = LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
 
-                        Tot.setText(String.valueOf(CalcolaTot(PiattiTavolo)));
-                        //OrdiniModel.remove(TavoliList.getSelectedIndex());
-                    }else{
-                        JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
+                            Tot.setText(String.valueOf(CalcolaTot(PiattiTavolo)));
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
+                        }
                     }
                 }else{
                     JOptionPane.showMessageDialog(frame, "Nessun piatto da pagare");
@@ -115,7 +115,11 @@ public class Gestore_Cassa extends JPanel{
         }
     }
 
-
+    /**
+     * Metodo per aggiungere al panel i piatti del tavolo selezionato
+     * @param NTavolo int Id del tavolo selezionato
+     * @return arraylist<Piatto> lista dei piatti del tavolo selezionato
+     */
     public ArrayList<Piatto> LoadPiattiOrdine(int NTavolo){
         for(Ordine o: gestore_cassaLogic.GetOrdini()){
             if(o.getTavoloID()==NTavolo){
@@ -224,6 +228,7 @@ public class Gestore_Cassa extends JPanel{
             return ris;
         }
     }
+
 
     public ArrayList<Piatto> getPiatti(int tavoloID) {
         if (!(gestore_cassaLogic.GetOrdini().isEmpty())) {
