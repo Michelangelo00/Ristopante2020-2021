@@ -65,14 +65,12 @@ public class Cuoco extends JPanel{
                     Stream<JCheckBox> stream = cb.get(i).stream();
                     boolean contains= stream.limit(cb.get(i).size()-1).anyMatch(Component::isEnabled);
                     if(!(contains)){
-                        int risposta= JOptionPane.showConfirmDialog(frame,"Ordine del tavolo "+cb.get(i).get(cb.get(i).size()-1).getText()+" è stato completato, vuoi eliminarlo?","Elimina ordine",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-                        if(risposta==JOptionPane.YES_OPTION){
-                            cuoco.EvadiTavolo( cb.get(i).get(cb.get(i).size()-1).getText());
-                            Pulisci(cb.get(i),cb.get(i).get(cb.get(i).size()-1).getText());
-                            cb.remove(i);
-                            frame.revalidate();
-                            frame.repaint();
-                        }
+                        JOptionPane.showMessageDialog(frame, "Ordine del tavolo "+cb.get(i).get(cb.get(i).size()-1).getText()+" è stato completato, procedo all'evasione");
+                        cuoco.EvadiTavolo(cb.get(i).get(cb.get(i).size()-1).getText());
+                        Pulisci(cb.get(i),cb.get(i).get(cb.get(i).size()-1).getText());
+                        cb.remove(i);
+                        frame.revalidate();
+                        frame.repaint();
                     }
                 }
             }

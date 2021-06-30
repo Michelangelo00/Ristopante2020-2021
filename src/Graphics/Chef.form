@@ -121,6 +121,7 @@
           <component id="be1da" class="javax.swing.JComboBox" binding="TypeBox">
             <constraints border-constraint="Center"/>
             <properties>
+              <foreground color="-4473925"/>
               <model>
                 <item value="SELEZIONA"/>
               </model>

@@ -62,7 +62,7 @@ public class HomePage {
         });
 
         /**
-         *  Listener per il bottonep er passare al cameriere
+         *  Listener per il bottone per passare al cameriere
          */
         cameriereButton.addActionListener(new ActionListener() {
             @Override
