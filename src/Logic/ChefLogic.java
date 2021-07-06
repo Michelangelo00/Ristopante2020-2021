@@ -23,14 +23,12 @@ public class ChefLogic {
      */
     public boolean addFood(Piatto nuovo){
         boolean add= true;
-        ListIterator<Piatto> itr= data.getMenu().listIterator();
-        while(itr.hasNext()){
-            Piatto p = itr.next();
-            if(p.getNome().equals(nuovo.getNome())){
-                add=false;
+        for (Piatto p : data.getMenu()) {
+            if (p.getNome().equals(nuovo.getNome())) {
+                add = false;
                 break;
-            }else{
-                add=true;
+            } else {
+                add = true;
             }
         }
         if(add){

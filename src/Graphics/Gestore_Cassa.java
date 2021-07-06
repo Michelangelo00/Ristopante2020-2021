@@ -63,7 +63,7 @@ public class Gestore_Cassa extends JPanel{
                         if (PiattiPanel.getComponents().length == 0) {
                             ArrayList<Piatto> PiattiTavolo = LoadPiattiOrdine((Integer) TavoliList.getSelectedValue());
 
-                            Tot.setText(String.valueOf(CalcolaTot(PiattiTavolo)));
+                            Tot.setText(String.valueOf(CalcolaTot(PiattiTavolo))+"€");
                         } else {
                             JOptionPane.showMessageDialog(frame, "Piatti già caricati!");
                         }
@@ -155,30 +155,12 @@ public class Gestore_Cassa extends JPanel{
             int ris = NO_SUCH_PAGE;
             if (pageIndex == 0) {
                 Graphics g2d = (Graphics2D) graphics;
-                double larghezza = pageFormat.getImageableWidth();
                 g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
-
-                FontMetrics metrics = g2d.getFontMetrics(new Font("Arial", Font.BOLD, 7));
-                int PiattoLunghezza = metrics.stringWidth("000000");
-                int QuantitàLunghezza = metrics.stringWidth("00000");
-                int PrezzoLunghezza = metrics.stringWidth("000000");
-                int prodLength = (int) larghezza - PiattoLunghezza - QuantitàLunghezza - PrezzoLunghezza - 17;
-
-                int productPosition = 0;
-                int discountPosition = prodLength + 5;
-                int pricePosition = 10;
-                int qtyPosition = pricePosition + PrezzoLunghezza + 4;
-                int amtPosition = qtyPosition + QuantitàLunghezza;
-
                 try {
                     int y = 20;
                     int yShift = 10;
                     int headerRectHeight = 10;
-                    int headerRectHeighta = 40;
-
-
                     double sum = 0;
-
                     g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
                     g2d.drawString("-------------------------------------", 12, y);
                     y += yShift;
@@ -206,13 +188,7 @@ public class Gestore_Cassa extends JPanel{
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
-                    g2d.drawString("           Codice Lotteria         ", 10, y);
-                    y += yShift;
-                    g2d.drawString("             03111111111             ", 10, y);
-                    y += yShift;
-                    g2d.drawString("*************************************", 10, y);
-                    y += yShift;
-                    g2d.drawString("    Contatti: ristorante@gmail.com   ", 10, y);
+                    g2d.drawString("    Contatti: ristopante@gmail.com   ", 10, y);
                     y += yShift;
                     g2d.drawString("*************************************", 10, y);
                     y += yShift;

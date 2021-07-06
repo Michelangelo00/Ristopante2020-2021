@@ -107,7 +107,7 @@ public class Cuoco extends JPanel{
                 cb.add(check);
             }
         }
-        frame.pack();
+        //frame.pack();
     }
 
     /**

@@ -83,16 +83,12 @@ public class Chef extends JPanel{
                             PiattoNome.setText("");
                             PiattoPrezzo.setText("");
                         }else {
-                            if (tipo.toString().equals("BEVANDE")) {
-                                Add(BevandeModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
-                            }else if(tipo.toString().equals("PRIMI")){
-                                Add(PrimiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
-                            }else if(tipo.toString().equals("SECONDI")){
-                                Add(SecondiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
-                            }else if(tipo.toString().equals("DOLCI")){
-                                Add(DolciModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
-                            }else if(tipo.toString().equals("ANTIPASTI")){
-                                Add(AntiPastiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
+                            switch (tipo.toString()) {
+                                case "BEVANDE" -> Add(BevandeModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
+                                case "PRIMI" -> Add(PrimiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
+                                case "SECONDI" -> Add(SecondiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
+                                case "DOLCI" -> Add(DolciModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
+                                case "ANTIPASTI" -> Add(AntiPastiModel, new Piatto(nome, prezzo, (Piatto.Type) tipo));
                             }
                             PiattoNome.setText("");
                             PiattoPrezzo.setText("");
