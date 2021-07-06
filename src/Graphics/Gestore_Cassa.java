@@ -150,6 +150,7 @@ public class Gestore_Cassa extends JPanel{
      * Classe che si occupa di creare graficamente la ricevuta del tavolo selezionato
      */
     public class Ricevuta implements Printable {
+        private final int iva=22;
         @Override
         public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
             int ris = NO_SUCH_PAGE;
@@ -184,7 +185,9 @@ public class Gestore_Cassa extends JPanel{
                     }
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
-                    g2d.drawString(" Totale: " + sum + "               ", 10, y);
+                    g2d.drawString(" Totale: " + sum + "€               ", 10, y);
+                    y += yShift;
+                    g2d.drawString(" Di cui IVA 22%: " + (sum*iva)/100 + "€              ", 10, y);
                     y += yShift;
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
